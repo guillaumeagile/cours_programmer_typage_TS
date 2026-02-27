@@ -25,7 +25,6 @@ describe('Chapter A Section 02: Classes and Inheritance as Types', () => {
       abstract class OrderStatus {
         constructor(readonly name: string) {}
         abstract getDescription(): string;
-       C
       }
 
      // let orderStatus = new OrderStatus

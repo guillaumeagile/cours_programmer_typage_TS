@@ -3,15 +3,23 @@ import {PerformanceMark} from "node:perf_hooks";
 describe('Chapter A: Cohesion - Type Basics', () => {
   describe('1. What is a Type?', () => {
     it('should understand types as constraints on values', () => {
+
+     let count = 33;
+     //count = "edd";
+
+     const cost : number = 55;
+     let name : string = 'Alice';
+
+
       // A type defines what values are valid
       type Age = number;
-      type Email = string;
+      type Email2 = string;
 
       const validAge : any = 25;
-      const validEmail: Email = 'alice@example.com';
+      const validEmail: Email2 = 'alice@example.com';
 
-     // expect(validAge).toBe(25);
-      expect( validAge === 25).toBeTruthy();
+      expect(validAge).toBe(25);
+      expect( validAge === "25").toBeTruthy();
       expect(validEmail).toBe('alice@example.com');
     });
 
@@ -20,9 +28,10 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       type Name = string;
       type Vérité = boolean;
 
-      const count: Count = 5;
-      const name: Name = 'Alice';
+      let count: Count = 5;
+      var name: Name = 'Alice';
       const vrai : Vérité = true;
+     // count ++;
 
       // Numbers support arithmetic
       expect(count + 3).toBe(8);
@@ -31,13 +40,13 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       expect(name + ' Smith').toBe('Alice Smith');
 
       // But not mixed operations
-       const result = count.toString() + name; // ✗ Type error
+       const result = 5 + name ; // ✗ Type error
       expect(result).toEqual('5Alice');
 
       const result2 = vrai + name;
       expect(result2).toEqual('trueAlice');
 
-      //const result3: number = vrai && vrai;
+     // const result3: number = vrai && vrai;
 
     });
   });
@@ -79,19 +88,20 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       type Point = { x: number; y: number };
       type Coordinate = { x: number; y: number }; //try add z, z: number
 
+
       const point: Point  = { x: 1, y: 2 };
       const coord: Coordinate = point; // ✓ Same shape = compatible
 
       expect(typeof point).toBe('object');
       expect(point).toBeInstanceOf(Object );
 
-   //   expect(coord.x).toBe(1);
-   //   expect(coord.y).toBe(2);
+      expect(coord.x).toBe(1);
+      expect(coord.y).toBe(2);
 
       // structural typing is not nominal
 
-    //  expect(typeof point ).toBe('Point');
-    //  expect(typeof coord).toBe('Coordinate');
+      expect(typeof point ).toBe('Point');
+      expect(typeof coord).toBe('Point');
 
      // expect( point).toBeInstanceOf(Point);
 
@@ -166,6 +176,9 @@ describe('Chapter A: Cohesion - Type Basics', () => {
         email: Email;
       };
 
+      type frenchUser = User & { language: 'French' };
+      const guillaume = { id: '1', name: 'Guillaume', email: 'guillaume@example.com', language: 'French' };
+
       const id: UserId = '12345';
       const email: Email = 'alice@example.com';
       const user : User = {  id,  email }
@@ -173,6 +186,7 @@ describe('Chapter A: Cohesion - Type Basics', () => {
 
       expect(id).toBe('12345');
       expect(email).toBe('alice@example.com');
+      expect(guillaume.language).toBe('French');
     });
 
     it('should use interfaces for object contracts', () => {
@@ -189,7 +203,7 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       };
 
       expect(user.name).toBe('Alice');
-     // expect(typeof user ).toBe('User');
+     // expect(typeof user ).toBe('IUser');
       expect(user ).toBeInstanceOf(Object);
 
 
@@ -206,7 +220,7 @@ describe('Chapter A: Cohesion - Type Basics', () => {
 
     const userInstance = new UserClass();
       expect(userInstance).toBeInstanceOf(UserClass);
-  //   expect(userInstance).toBeInstanceOf(IUser)
+  //   expect(userInstance).toBeInstanceOf( IUser)
       expect(typeof userInstance ).toBe('object');
 
       /*
@@ -252,7 +266,7 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       // const x = 5 +;
 
       // Type error - parses but violates type rules:
-     //  const Y: string = 5; // ✗ Type error
+      // const Y: string = 5; // ✗ Type error
 
       // Valid code:
       const y: string = '5';
@@ -266,8 +280,8 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       // This works:
       expect(age + 5).toBe(35);
 
-      // This would be a type error:
-      // const result = age + name; // ✗ Can't add number and string
+      // This should be a type error (but it's not):
+       const result = age + name; // ✗ Can't add number and string
     });
   });
 
@@ -292,19 +306,50 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       expect(user.email).toBe('alice@example.com');
     });
 
-    it('should prevent mixing unrelated data', () => {
+    it('would prevent mixing unrelated types :-/', () => {
       type UserId = string;
       type Email = string;
 
+      let email = "d"
+      let userId = "123"
+
       // Without distinct types, easy to mix up:
       // function createUser(a: string, b: string) { }
-      // createUser(email, userId); // ✗ Wrong order, hard to catch
+       createUser(userId, userId); // ✗ Wrong order, hard to catch
 
-      // With distinct types, impossible to mix:
+      // With distinct types, should be impossible to mix:
       function createUser(id: UserId, email: Email) {
         return { id, email };
       }
 
+      const user = createUser( 'alice@example.com', '123');
+      expect(user.id).toBe('123');
+      expect(user.email).toBe('alice@example.com');
+
+      // This would be a type error:
+      // createUser('alice@example.com', '123'); // ✗ Wrong order
+    });
+
+    it('branded types should prevent mixing unrelated data', () => {
+      type UserId = string & { readonly __brand: 'UserId' };
+      type Email = string & { readonly __brand: 'Email' };
+
+      let email = "d"
+      let userId = "123"
+
+      let stronglyTypedEmail: Email = "d" as Email
+      let stronglyTypedUserId: UserId = "123" as UserId
+
+
+      // with branded types, impossible to mix up 💪
+    //   createUser(stronglyTypedEmail, stronglyTypedUserId); // ✗ Wrong order, does not compile
+
+      // With distinct types, should be impossible to mix:
+      function createUser(id: UserId, email: Email) {
+        return { id, email };
+      }
+
+      //@ts-ignore  // SUPPRESS ME 👽
       const user = createUser('123', 'alice@example.com');
       expect(user.id).toBe('123');
       expect(user.email).toBe('alice@example.com');
@@ -312,6 +357,10 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       // This would be a type error:
       // createUser('alice@example.com', '123'); // ✗ Wrong order
     });
+
+
+
+
 
     it('should reveal intent through semantic types', () => {
       // Low cohesion - unclear intent
