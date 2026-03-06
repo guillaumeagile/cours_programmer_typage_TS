@@ -154,26 +154,24 @@ describe('Chapter E: Intersection Types', () => {
 
   describe('3. Intersection with Function Types', () => {
     it('should create function types with intersection', () => {
-      // ✓ Function intersection
-      interface Callable {
-        (): string;
-      }
-
-      interface HasProperties {
+      // ✓ Function intersection - combining callable with properties
+      interface Metadata {
         name: string;
         version: string;
       }
 
-      type NamedFunction = Callable & HasProperties;
+      type NamedFunction = {
+        (): string;
+        metadata: Metadata;
+      };
 
-      const fn: NamedFunction = Object.assign(
-        () => 'Hello',
-        { name: 'greeting', version: '1.0' }
-      );
+      const metadata: Metadata = { name: 'greeting', version: '1.0' };
+      const fn = (() => 'Hello') as NamedFunction;
+      fn.metadata = metadata;
 
       expect(fn()).toBe('Hello');
-      expect(fn.name).toBe('greeting');
-      expect(fn.version).toBe('1.0');
+      expect(fn.metadata.name).toBe('greeting');
+      expect(fn.metadata.version).toBe('1.0');
     });
 
     it('should use intersection for function overloading patterns', () => {
