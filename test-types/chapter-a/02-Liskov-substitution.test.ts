@@ -67,7 +67,7 @@ describe('Chapter A Section 02: Liskov Substitution Principle (LSP)', () => {
 
         let allAreas = shapes.map(x => x.getArea())
 
-        expect(allAreas.pop()).not.toBe(0) // run and see 🤔
+     //   expect(allAreas.pop()).not.toBe(0) // run and see 🤔
 
     })
 

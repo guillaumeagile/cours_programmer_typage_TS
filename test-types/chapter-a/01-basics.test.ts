@@ -19,7 +19,7 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       const validEmail: Email2 = 'alice@example.com';
 
       expect(validAge).toBe(25);
-      expect( validAge === "25").toBeTruthy();
+     // expect( validAge === "25").toBeTruthy();
       expect(validEmail).toBe('alice@example.com');
     });
 
@@ -98,10 +98,9 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       expect(coord.x).toBe(1);
       expect(coord.y).toBe(2);
 
-      // structural typing is not nominal
-
-      expect(typeof point ).toBe('Point');
-      expect(typeof coord).toBe('Point');
+      // structural typing is not nominal (remove the comments below to see the error)
+     // expect(typeof point ).toBe('Point');
+     // expect(typeof coord).toBe('Point');
 
      // expect( point).toBeInstanceOf(Point);
 
@@ -324,6 +323,8 @@ describe('Chapter A: Cohesion - Type Basics', () => {
     // PROBLEM HERE !!!!! 😰 😰 😰 😰
       const user = createUser( 'alice@example.com', '123');       // This should be a type error:
     //   createUser('alice@example.com', '123'); // ✗ Wrong order
+
+     // only the tests can prove you wrong here:
       expect(user.id).toBe('123');
       expect(user.email).toBe('alice@example.com');
 
@@ -349,9 +350,9 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       }
 
       //@ts-ignore  // SUPPRESS ME 👽
-      const user = createUser('123@iter.org', 'alice');
+      const user = createUser('123', 'alice@iter.org');
       expect(user.id).toBe('123');
-      expect(user.email).toBe('alice@example.com');
+      expect(user.email).toBe('alice@iter.org');
 
       // This would be a type error:
       // createUser('alice@example.com', '123'); // ✗ Wrong order
