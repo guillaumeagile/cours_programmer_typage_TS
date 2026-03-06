@@ -1,3 +1,9 @@
+// read the official documentation
+// https://www.typescriptlang.org/docs/handbook/2/objects.html#intersection-types
+//https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html
+
+
+
 describe('Chapter E: Intersection Types', () => {
   describe('1. Understanding Intersection Types', () => {
     it('should combine multiple types with intersection', () => {
@@ -21,6 +27,22 @@ describe('Chapter E: Intersection Types', () => {
       expect(person.age).toBe(30);
     });
 
+    /* *****  Interface Extension vs. Intersection ********
+We just looked at two ways to combine types which are similar, but are actually subtly different.
+With interfaces, we could use an extends clause to extend from other types, and we were able to do something similar with
+ intersections and name the result with a type alias.
+ The principal difference between the two is how conflicts are handled,
+  and that difference is typically one of the main reasons why you’d pick one over the other between an interface
+  and a type alias of an intersection type.
+
+If interfaces are defined with the same name, TypeScript will attempt to merge them if the properties are compatible.
+ If the properties are not compatible (i.e., they have the same property name but different types), TypeScript will raise an error.
+
+In the case of intersection types, properties with different types will be merged automatically.
+When the type is used later, TypeScript will expect the property to satisfy both types simultaneously,
+which may produce unexpected results.
+https://www.typescriptlang.org/docs/handbook/2/objects.html#intersection-types
+    */
     it('should show intersection with multiple interfaces', () => {
       // ✓ Intersection with 3+ types
       interface HasId {
