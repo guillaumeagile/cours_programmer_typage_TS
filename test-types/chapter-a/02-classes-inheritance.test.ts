@@ -14,7 +14,7 @@ describe('Chapter A Section 02: Classes and Inheritance as Types', () => {
     // lombok Java
       const product: Product = new Product('PROD-1', 'Laptop', 999.99);
       expect(product.id).toBe('PROD-1');
-      //product.id = "dlodldl"
+    //  product.name = "dlodldl"  //immutable by default
       expect(product.getDisplayName()).toBe('Laptop ($999.99)');
       expect(product instanceof Product).toBe(true);
     });
@@ -27,7 +27,7 @@ describe('Chapter A Section 02: Classes and Inheritance as Types', () => {
         abstract getDescription(): string;
       }
 
-     // let orderStatus = new OrderStatus
+      //let orderStatus = new OrderStatus('Pending')
 
       class PendingStatus extends OrderStatus {
         getDescription(): string { return 'Awaiting payment'; }
@@ -211,6 +211,7 @@ describe('Chapter A Section 02: Classes and Inheritance as Types', () => {
       const status: OrderStatus = new ShippedStatus('Shipped');
       expect(status.getDescription()).toBe('In transit');
       expect(status instanceof ShippedStatus).toBe(true);
+   //   expect(status instanceof OrderStatus).toBe(true);
     });
   });
 

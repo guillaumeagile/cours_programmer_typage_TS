@@ -22,6 +22,6 @@ describe('Contraint on types', () => {
         let catalogue : Map<EAN13, AllowedProduct > = new Map();
 
         catalogue.set(new EAN13('1234567890123'), new PhysicalProduct('1', 'Product 1', 10));
-        catalogue.set(new EAN13('1234567890124'), new DangerousProduct('2', 'Product 2', 20));
+       // catalogue.set(new EAN13('1234567890124'), new DangerousProduct('2', 'Product 2', 20));
     });
 });

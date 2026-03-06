@@ -301,7 +301,7 @@ describe('Chapter A: Cohesion - Type Basics', () => {
         createdAt: new Date('2024-01-01')
       };
 
-      // All user data is grouped together
+      // All user data is grouped together (encapsulation in object)
       expect(user.id).toBe('1');
       expect(user.email).toBe('alice@example.com');
     });
@@ -321,13 +321,13 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       function createUser(id: UserId, email: Email) {
         return { id, email };
       }
-
-      const user = createUser( 'alice@example.com', '123');
+    // PROBLEM HERE !!!!! 😰 😰 😰 😰
+      const user = createUser( 'alice@example.com', '123');       // This should be a type error:
+    //   createUser('alice@example.com', '123'); // ✗ Wrong order
       expect(user.id).toBe('123');
       expect(user.email).toBe('alice@example.com');
 
-      // This would be a type error:
-      // createUser('alice@example.com', '123'); // ✗ Wrong order
+
     });
 
     it('branded types should prevent mixing unrelated data', () => {
@@ -337,20 +337,19 @@ describe('Chapter A: Cohesion - Type Basics', () => {
       let email = "d"
       let userId = "123"
 
-      let stronglyTypedEmail: Email = "d" as Email
+      let stronglyTypedEmail: Email = "alice@example.com" as Email
       let stronglyTypedUserId: UserId = "123" as UserId
 
-
       // with branded types, impossible to mix up 💪
-    //   createUser(stronglyTypedEmail, stronglyTypedUserId); // ✗ Wrong order, does not compile
+      // createUser(stronglyTypedEmail, stronglyTypedUserId); // ✗ Wrong order, does not compile
 
-      // With distinct types, should be impossible to mix:
+
       function createUser(id: UserId, email: Email) {
         return { id, email };
       }
 
       //@ts-ignore  // SUPPRESS ME 👽
-      const user = createUser('123', 'alice@example.com');
+      const user = createUser('123@iter.org', 'alice');
       expect(user.id).toBe('123');
       expect(user.email).toBe('alice@example.com');
 
@@ -362,24 +361,6 @@ describe('Chapter A: Cohesion - Type Basics', () => {
 
 
 
-    it('should reveal intent through semantic types', () => {
-      // Low cohesion - unclear intent
-      function processData(a: string, b: string, c: number) {
-        return { a, b, c };
-      }
-
-      // High cohesion - clear intent
-      type UserId = string;
-      type Email = string;
-      type Age = number;
-
-      function createUser(id: UserId, email: Email, age: Age) {
-        return { id, email, age };
-      }
-
-      const user = createUser('123', 'alice@example.com', 30);
-      expect(user.email).toBe('alice@example.com');
-    });
   });
 
   describe('8. Checkpoint 🫵', () => {
