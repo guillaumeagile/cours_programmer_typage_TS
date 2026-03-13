@@ -102,17 +102,17 @@ describe('Interfaces vs. Type Aliases', () => {
         });
     });
 
-    describe('4. Union Types - Only Type Aliases can do it at top level', () => {
+    describe('4. Defining Union Types - Only Type Aliases can do it at top level', () => {
         // Type aliases can define a type that IS a union of multiple options
         type Status = 'pending' | 'approved' | 'rejected';
 
         it('type alias can define union types at top level', () => {
             // Status itself is a union - can be one of three literal values
             const status: Status = 'approved';
-            expect(status).toBe('approved');
+            expect(status).not.toBe('approved2');
 
-            // This would fail - 'pending2' is not in the union
-            // const status2: Status = 'pending2';
+            // This would fail - 'approved2' is not in the union
+
         });
 
         // Interfaces CANNOT define a union at the top level
@@ -127,7 +127,7 @@ describe('Interfaces vs. Type Aliases', () => {
             }
 
             const result: Result = {
-                value: 42   // you can assign either a string or a number
+                value: 42   // you can assign either a number  or a string "forty-two"
             };
             expect(result.value).toBe(42);
         });

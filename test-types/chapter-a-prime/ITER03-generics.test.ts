@@ -192,6 +192,89 @@ describe('Generics', () => {
         });
     });
 
+    describe('8.intro Indexed Access Types - Access property types by key', () => {
+        // Indexed Access Type: T[K] gets the type of property K in type T
+        // Similar to accessing object properties at runtime, but at the type level
+        
+        it('should access property type by key', () => {
+            type User = { name: string; age: number };
+            
+            // T[K] syntax: get the type of property K from type T
+            type NameType = User['name'];      // resolves to: string
+            type AgeType = User['age'];        // resolves to: number
+            
+            const name: NameType = 'Alice';
+            const age: AgeType = 30;
+            
+            expect(typeof name).toBe('string');
+            expect(typeof age).toBe('number');
+        });
+
+        it('should work with union of keys', () => {
+            type Product = { id: number; title: string; price: number };
+            
+            // Access multiple properties at once
+            type ProductValue = Product['id' | 'price'];  // number | number = number
+            
+            const value1: ProductValue = 123;
+            const value2: ProductValue = 99.99;
+            
+            expect(typeof value1).toBe('number');
+            expect(typeof value2).toBe('number');
+        });
+
+        it('should work with keyof to get all property types', () => {
+            type Settings = { theme: 'light' | 'dark'; fontSize: number };
+            
+            // T[keyof T] gets union of all property types
+            type SettingValue = Settings[keyof Settings];  // 'light' | 'dark' | number
+            
+            const val1: SettingValue = 'light';
+            const val2: SettingValue = 16;
+            
+            expect(val1).toBe('light');
+            expect(val2).toBe(16);
+        });
+
+        it('should work with generic constraints', () => {
+            // Get type of a specific property from generic type T
+            function getPropertyType<T, K extends keyof T>(obj: T, key: K): T[K] {
+                return obj[key];
+            }
+            
+            const user = { name: 'Alice', age: 30 };
+            const name = getPropertyType(user, 'name');  // type: string
+            const age = getPropertyType(user, 'age');    // type: number
+            
+            expect(name).toBe('Alice');
+            expect(age).toBe(30);
+        });
+
+        it('should work with array element types', () => {
+            type StringArray = string[];
+            
+            // Get element type of array
+            type ElementType = StringArray[number];  // resolves to: string
+            
+            const element: ElementType = 'hello';
+            expect(typeof element).toBe('string');
+        });
+
+        it('should chain indexed access', () => {
+            type Nested = {
+                user: { name: string; profile: { bio: string } }
+            };
+            
+            // Chain multiple indexed accesses
+            type UserType = Nested['user'];                    // { name: string; profile: { bio: string } }
+            type ProfileType = Nested['user']['profile'];      // { bio: string }
+            type BioType = Nested['user']['profile']['bio'];   // string
+            
+            const bio: BioType = 'Software engineer';
+            expect(typeof bio).toBe('string');
+        });
+    });
+
     describe('8. Generic with Keyof', () => {
         // keyof T gets all keys of type T
         // K extends keyof T ensures K is a valid key of T
