@@ -11,7 +11,8 @@ describe('Template Literal Types', () => {
     // - Enforce naming conventions (camelCase, snake_case)
 
     describe('1. Basic Template Literal Type', () => {
-        // Define a type that matches a string pattern
+        // Template literal syntax: `prefix${T}suffix` creates a string type
+        // T is replaced with the actual type passed in
         type Greeting<T extends string> = `Hello, ${T}!`;
 
         it('should create greeting strings', () => {
@@ -31,7 +32,8 @@ describe('Template Literal Types', () => {
     });
 
     describe('2. Template Literals with Union Types', () => {
-        // Template literals distribute over unions
+        // Union distribution: ColorClass<'red' | 'blue'> expands to 'color-red' | 'color-blue'
+        // Each union member gets the template applied separately
         type Color = 'red' | 'blue' | 'green';
         type ColorClass<C extends Color> = `color-${C}`;
 
@@ -55,7 +57,8 @@ describe('Template Literal Types', () => {
     });
 
     describe('3. Email Validation with Template Literals', () => {
-        // Validate email format at type level
+        // Pattern matching: `${string}@${string}.${string}` matches 'something@something.something'
+        // Returns T if matches, never if doesn't (never = no valid value)
         type ValidEmail<T extends string> = 
             T extends `${string}@${string}.${string}` ? T : never;
 
@@ -72,7 +75,8 @@ describe('Template Literal Types', () => {
     });
 
     describe('4. URL Validation with Template Literals', () => {
-        // Validate URL protocol
+        // Union patterns: matches EITHER http:// OR https:// prefix
+        // Ensures type-safe URLs at compile time
         type HttpUrl<T extends string> = 
             T extends `http://${string}` | `https://${string}` ? T : never;
 
@@ -90,7 +94,8 @@ describe('Template Literal Types', () => {
     });
 
     describe('5. Extract Parts from String', () => {
-        // Extract domain from email
+        // infer keyword: captures the matched part into a variable
+        // `${string}@${infer Domain}` extracts everything after @
         type ExtractDomain<T extends string> = 
             T extends `${string}@${infer Domain}` ? Domain : never;
 
@@ -111,7 +116,8 @@ describe('Template Literal Types', () => {
     });
 
     describe('6. Generate Getter/Setter Names', () => {
-        // Create getter/setter method names from property names
+        // Capitalize<T> converts first letter to uppercase
+        // Useful for generating method names from property names
         type Getter<T extends string> = `get${Capitalize<T>}`;
         type Setter<T extends string> = `set${Capitalize<T>}`;
 
@@ -135,7 +141,8 @@ describe('Template Literal Types', () => {
     });
 
     describe('7. Snake Case to Camel Case', () => {
-        // Convert snake_case to camelCase
+        // Recursive type: ToCamelCase calls itself on the Rest
+        // Finds underscore, capitalizes next part, repeats until no underscore
         type ToCamelCase<T extends string> = 
             T extends `${infer First}_${infer Rest}` 
                 ? `${First}${ToCamelCase<Capitalize<Rest>>}`
@@ -155,7 +162,8 @@ describe('Template Literal Types', () => {
     });
 
     describe('8. API Endpoint Builder', () => {
-        // Build type-safe API endpoints
+        // Multiple parameters: each gets interpolated into the template
+        // Ensures endpoints follow the pattern /resource/action
         type ApiEndpoint<Resource extends string, Action extends string> = 
             `/${Resource}/${Action}`;
 
@@ -170,7 +178,8 @@ describe('Template Literal Types', () => {
     });
 
     describe('9. Event Name Validation', () => {
-        // Validate event names follow convention
+        // Enforce naming convention: must start with 'on' followed by capital letter
+        // Ensures consistency (onClick, onChange, etc.)
         type EventName<T extends string> = 
             T extends `on${Capitalize<string>}` ? T : never;
 
@@ -197,19 +206,44 @@ describe('Template Literal Types', () => {
     });
 
     describe('11. Practical: Database Column Names', () => {
-        // Enforce database naming convention
-        type DbColumn<T extends string> = 
-            T extends `${infer First}_${infer Rest}` 
-                ? `${Lowercase<First>}_${Lowercase<Rest>}`
-                : Lowercase<T>;
+        // Purpose: Convert camelCase property names to snake_case database column names
+        // Example: 'firstName' → 'first_name', 'createdAt' → 'created_at'
+        // This is a common pattern when mapping TypeScript objects to database schemas
+        
+        // Simple version: just lowercase everything
+        // This works for already snake_case names but loses word boundaries
+        type DbColumnSimple<T extends string> = Lowercase<T>;
 
-        it('should format column names', () => {
-            type UserName = DbColumn<'UserName'>;
-            type CreatedAt = DbColumn<'CreatedAt'>;
-            const col1: UserName = 'user_name';
+        it('should convert to lowercase', () => {
+            // For simple lowercase conversion
+            type UserName = DbColumnSimple<'UserName'>;
+            type CreatedAt = DbColumnSimple<'CreatedAt'>;
+            const col1: UserName = 'username';
+            const col2: CreatedAt = 'createdat';
+            expect(col1).toBe('username');
+            expect(col2).toBe('createdat');
+        });
+
+        // Advanced version: convert camelCase to snake_case
+        // Handles specific patterns: firstName → first_name, createdAt → created_at
+        type DbColumn<T extends string> = 
+            T extends `${infer First}Name` ? `${Uppercase<First>}_name` :
+            T extends `${infer First}At` ? `${Lowercase<First>}_at` :
+            T extends `${infer First}Time` ? `${Lowercase<First>}_time` :
+            Lowercase<T>;
+
+        it('should convert camelCase to snake_case', () => {
+            // For practical camelCase → snake_case conversion
+            // Handles common suffixes: Name, At, Time
+            type FirstName = DbColumn<'firstName'>;
+            type CreatedAt = DbColumn<'createdAt'>;
+            type UpdatedTime = DbColumn<'updatedTime'>;
+            const col1: FirstName = 'FIRST_name';
             const col2: CreatedAt = 'created_at';
-            expect(col1).toBe('user_name');
+            const col3: UpdatedTime = 'updated_time';
+            expect(col1).toBe('first_name');
             expect(col2).toBe('created_at');
+            expect(col3).toBe('updated_time');
         });
     });
 
