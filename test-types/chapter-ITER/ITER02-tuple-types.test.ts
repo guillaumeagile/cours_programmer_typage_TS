@@ -22,22 +22,22 @@ describe('Tuple Types', () => {
     });
 
     describe('2. Tuples with Different Types', () => {
-        type UserRecord = [string, number, boolean];
+        type UserRecord = [string, string, boolean];
 
         it('should support different types at each position', () => {
-            const user: UserRecord = ['Alice', 30, true];
+            const user: UserRecord = ['Alice', '30', true];
             expect(user[0]).toBe('Alice');
-            expect(user[1]).toBe(30);
+            expect(user[1]).toBe('30');
             expect(user[2]).toBe(true);
         });
 
         it('should enforce type at each position', () => {
-            const user: UserRecord = ['Bob', 25, false];
+            const user: UserRecord = ['Bob', '25', false];
             const name: string = user[0];
-            const age: number = user[1];
+          //  const age: number = user[1];
             const active: boolean = user[2];
             expect(name).toBe('Bob');
-            expect(age).toBe(25);
+          //  expect(age).toBe(25);
             expect(active).toBe(false);
         });
     });
@@ -105,6 +105,7 @@ describe('Tuple Types', () => {
             const point: ReadonlyCoordinate = [10, 20];
             expect(point[0]).toBe(10);
             expect(point[1]).toBe(20);
+          //  point[1] = 55;
         });
 
         it('should be assignable from mutable tuple', () => {
@@ -119,15 +120,15 @@ describe('Tuple Types', () => {
 
         it('should support destructuring assignment', () => {
             const point: Point = [10, 20];
-            const [x, y] = point;
+            const [y, x] = point;
             expect(x).toBe(10);
             expect(y).toBe(20);
         });
 
         it('should support partial destructuring', () => {
             const point: Point = [5, 15];
-            const [x] = point;
-            expect(x).toBe(5);
+            const [y] = point;
+            expect(y).toBe(5);
         });
 
         it('should support rest in destructuring', () => {

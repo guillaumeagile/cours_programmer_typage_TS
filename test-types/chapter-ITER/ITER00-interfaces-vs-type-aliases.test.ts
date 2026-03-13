@@ -66,6 +66,8 @@ describe('Interfaces vs. Type Aliases', () => {
         });
     });
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     describe('3. Extension/Inheritance', () => {
         interface Shape {
             color: string;
@@ -83,6 +85,10 @@ describe('Interfaces vs. Type Aliases', () => {
             expect(circle.color).toBe('red');
             expect(circle.radius).toBe(10);
         });
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         type Polygon = {
             sides: number;
@@ -127,9 +133,9 @@ describe('Interfaces vs. Type Aliases', () => {
             }
 
             const result: Result = {
-                value: 42   // you can assign either a number  or a string "forty-two"
+                value: "42"   // you can assign either a number  or a string "forty-two"
             };
-            expect(result.value).toBe(42);
+            expect(result.value).toBe("42");
         });
 
         it('to create union of different shapes, must use type alias', () => {
@@ -146,6 +152,15 @@ describe('Interfaces vs. Type Aliases', () => {
             expect(error.status).toBe('error');
         });
     });
+
+    interface MyInterfance{
+        aValue?:string;
+        anOtherValue:string|null;
+    }
+
+    type MyType =  string|null;
+
+
 
     describe('5. Tuple Types - Only Type Aliases', () => {
         type Coordinate = [number, number];
