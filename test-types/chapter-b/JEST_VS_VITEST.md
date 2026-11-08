@@ -148,16 +148,16 @@ expect(user.name).toBe('Alice');
 
 **Jest (default):**
 ```bash
-npm test                                    # Run all tests
-npm run test:watch                          # Watch mode
-npm run test -- 00-internal-state-coupling  # Run specific file
+pnpm test                                    # Run all tests
+pnpm run test:watch                          # Watch mode
+pnpm run test 00-internal-state-coupling  # Run specific file
 ```
 
 **Vitest:**
 ```bash
-npm run test:vitest                         # Run all vitest files
-npm run test:vitest:watch                   # Watch mode
-npx vitest run test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts
+pnpm run test:vitest                         # Run all vitest files
+pnpm run test:vitest:watch                   # Watch mode
+pnpm exec vitest run test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts
 ```
 
 ## Why Mix Both?
@@ -193,7 +193,7 @@ npx vitest run test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts
 
 ### With Jest:
 ```bash
-npm test -- test-types/chapter-b/00-internal-state-coupling.test.ts
+pnpm test test-types/chapter-b/00-internal-state-coupling.test.ts
 ```
 
 Output:
@@ -210,7 +210,7 @@ PASS test-types/chapter-b/00-internal-state-coupling.test.ts
 
 ### With Vitest:
 ```bash
-npm run test:vitest:watch test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts
+pnpm run test:vitest:watch test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts
 ```
 
 Output:

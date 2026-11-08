@@ -72,7 +72,7 @@ Each chapter has:
 
 1. **Read** the explanation files (`.md`) to understand concepts
 2. **Study** the working examples (`.test.ts` files)
-3. **Run** the tests: `npm test -- test-types/`
+3. **Run** the tests: `pnpm test test-types/`
 4. **Complete** the checkpoints (🫵) to verify understanding
 5. **Experiment** - modify examples and observe type errors
 
@@ -80,13 +80,13 @@ Each chapter has:
 
 ```bash
 # Run all type-system tests
-npm test -- test-types/
+pnpm test test-types/
 
 # Run a specific chapter
-npm test -- test-types/chapter-a/
+pnpm test test-types/chapter-a/
 
 # Run with watch mode
-npm test -- test-types/ --watch
+pnpm test test-types/ --watch
 ```
 
 ## Prerequisites

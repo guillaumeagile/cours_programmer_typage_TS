@@ -27,9 +27,9 @@ focus on the types, not on the domain.
 ## How to work with the test files
 
 ```bash
-npm test -- test-types/chapter-a                  # the whole chapter
-npm test -- test-types/chapter-a/03               # one section
-npm test -- test-types/chapter-a --watch          # re-run on every save
+pnpm test test-types/chapter-a                  # the whole chapter
+pnpm test test-types/chapter-a/03               # one section
+pnpm test test-types/chapter-a --watch          # re-run on every save
 ```
 
 Conventions used in every file:

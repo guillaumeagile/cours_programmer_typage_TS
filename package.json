@@ -5,8 +5,9 @@
   "type": "module",
   "engines": {
     "node": ">=22.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=10.0.0"
   },
+  "packageManager": "pnpm@10.31.0",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -30,6 +31,7 @@
   "license": "ISC",
   "description": "Advanced TDD with Node.js project using Clean Architecture, DI, and TestContainers",
   "devDependencies": {
+    "@jest/globals": "29.7.0",
     "@testcontainers/postgresql": "^10.13.2",
     "@testcontainers/valkey": "^10.13.2",
     "@types/jest": "^29.5.12",
@@ -50,5 +52,15 @@
   },
   "volta": {
     "node": "22.20.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "protobufjs"
+    ],
+    "ignoredBuiltDependencies": [
+      "cpu-features",
+      "ssh2"
+    ]
   }
 }

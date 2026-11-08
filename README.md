@@ -7,7 +7,7 @@ This project demonstrates advanced Test-Driven Development practices using Node.
 ### Current Status
 - **Current Version**: Node.js v20.9.0
 - **Target Version**: Node.js v22.20.0 (Latest LTS)
-- **Current npm**: v10.8.3
+- **Package manager**: pnpm v10 (pinned in `package.json` via `packageManager`)
 
 ### How to Upgrade Node.js
 
@@ -52,22 +52,22 @@ nvm alias default lts/*
 1. **Verify the installation**:
    ```bash
    node --version  # Should show v22.20.0
-   npm --version   # Should show v10.x.x or higher
    ```
 
-2. **Update npm to latest version**:
+2. **Enable pnpm** (the exact version comes from the `packageManager` field of `package.json`):
    ```bash
-   npm install -g npm@latest
+   corepack enable
+   pnpm --version  # Should show v10.x.x
    ```
 
 3. **Install project dependencies** (when you add them):
    ```bash
-   npm install
+   pnpm install
    ```
 
 4. **Run tests to verify everything works**:
    ```bash
-   npm test
+   pnpm test
    ```
 
 ## Project Structure
@@ -86,16 +86,16 @@ Advanced-TDD-with-NodeJS/
 
 - **Modern ES Modules**: Uses `"type": "module"` for native ES6 imports/exports
 - **Built-in Test Runner**: Uses Node.js native test runner (no external dependencies)
-- **Version Constraints**: Enforces Node.js >=22.0.0 and npm >=10.0.0
+- **Version Constraints**: Enforces Node.js >=22.0.0 and pnpm >=10.0.0
 - **Watch Mode**: Supports `--watch` flag for development and testing
 - **TDD Ready**: Pre-configured for Test-Driven Development workflow
 
 ## Available Scripts
 
-- `npm test` - Run all tests
-- `npm run test:watch` - Run tests in watch mode
-- `npm start` - Start the application
-- `npm run dev` - Start the application in watch mode
+- `pnpm test` - Run all tests
+- `pnpm run test:watch` - Run tests in watch mode
+- `pnpm start` - Start the application
+- `pnpm run dev` - Start the application in watch mode
 
 ## What's New in Node.js v22
 
@@ -108,7 +108,7 @@ Advanced-TDD-with-NodeJS/
 ## TDD Workflow
 
 1. **Write a failing test** in the `test/` directory
-2. **Run the test** with `npm test` to see it fail
+2. **Run the test** with `pnpm test` to see it fail
 3. **Write minimal code** to make the test pass
 4. **Refactor** while keeping tests green
 5. **Repeat** the cycle
@@ -116,18 +116,18 @@ Advanced-TDD-with-NodeJS/
 ## Getting Started
 
 1. Upgrade Node.js following the instructions above
-2. Run `npm test` to verify the setup
+2. Run `pnpm test` to verify the setup
 3. Start writing your tests and implementation following TDD principles
 
 ## Troubleshooting
 
 If you encounter issues after upgrading:
 
-1. **Clear npm cache**: `npm cache clean --force`
-2. **Delete node_modules**: `rm -rf node_modules package-lock.json`
-3. **Reinstall dependencies**: `npm install`
+1. **Prune the pnpm store**: `pnpm store prune`
+2. **Delete node_modules**: `rm -rf node_modules`
+3. **Reinstall dependencies**: `pnpm install`
 4. **Check Node.js version**: `node --version`
-5. **Check npm version**: `npm --version`
+5. **Check pnpm version**: `pnpm --version`
 
 ## Next Steps
 

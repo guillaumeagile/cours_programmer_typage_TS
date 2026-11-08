@@ -196,7 +196,7 @@ Master type safety and error handling:
 ### For Self-Study
 1. Read the explanation file (`.md`) for each chapter
 2. Study the working examples (`.test.ts` files)
-3. Run the tests: `npm test -- test-types/chapter-a/`
+3. Run the tests: `pnpm test test-types/chapter-a/`
 4. Complete the checkpoints (🫵) to verify understanding
 5. Modify examples and experiment
 
@@ -218,20 +218,20 @@ Master type safety and error handling:
 
 ```bash
 # Run all type-system tests
-npm test -- test-types/
+pnpm test test-types/
 
 # Run a specific chapter
-npm test -- test-types/chapter-a/
-npm test -- test-types/chapter-b/
-npm test -- test-types/chapter-c/
-npm test -- test-types/chapter-d/
-npm test -- test-types/chapter-e/
+pnpm test test-types/chapter-a/
+pnpm test test-types/chapter-b/
+pnpm test test-types/chapter-c/
+pnpm test test-types/chapter-d/
+pnpm test test-types/chapter-e/
 
 # Run with watch mode
-npm test -- test-types/ --watch
+pnpm test test-types/ --watch
 
 # Run a specific test file
-npm test -- test-types/chapter-a/01-primitive-types-and-inference.test.ts
+pnpm test test-types/chapter-a/01-primitive-types-and-inference.test.ts
 ```
 
 ---

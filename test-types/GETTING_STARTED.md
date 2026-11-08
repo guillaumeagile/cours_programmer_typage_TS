@@ -20,7 +20,7 @@ test-types/chapter-a/README.md
 test-types/chapter-a/01-primitive-types-and-inference.test.ts
 
 # Run the tests
-npm test -- test-types/chapter-a/
+pnpm test test-types/chapter-a/
 ```
 
 **Want the Big Picture?** Read the index:
@@ -33,7 +33,7 @@ test-types/COURSE_INDEX.md
 For each chapter:
 1. **Read** the explanation (`chapter-X/README.md`)
 2. **Study** the examples (`chapter-X/01-*.test.ts`)
-3. **Run** the tests: `npm test -- test-types/chapter-X/`
+3. **Run** the tests: `pnpm test test-types/chapter-X/`
 4. **Complete** the checkpoints (🫵)
 5. **Experiment** - modify examples and see what breaks
 
@@ -75,26 +75,26 @@ test-types/
 
 ### Run All Tests
 ```bash
-npm test -- test-types/
+pnpm test test-types/
 ```
 
 ### Run a Specific Chapter
 ```bash
-npm test -- test-types/chapter-a/
-npm test -- test-types/chapter-b/
-npm test -- test-types/chapter-c/
-npm test -- test-types/chapter-d/
-npm test -- test-types/chapter-e/
+pnpm test test-types/chapter-a/
+pnpm test test-types/chapter-b/
+pnpm test test-types/chapter-c/
+pnpm test test-types/chapter-d/
+pnpm test test-types/chapter-e/
 ```
 
 ### Run with Watch Mode
 ```bash
-npm test -- test-types/ --watch
+pnpm test test-types/ --watch
 ```
 
 ### Run a Specific Test File
 ```bash
-npm test -- test-types/chapter-a/01-primitive-types-and-inference.test.ts
+pnpm test test-types/chapter-a/01-primitive-types-and-inference.test.ts
 ```
 
 ## Learning Outcomes by Chapter
@@ -213,7 +213,7 @@ Checkpoints are **not auto-graded**. They require you to:
 
 1. **Start with Chapter A**: `test-types/chapter-a/README.md`
 2. **Study the examples**: `test-types/chapter-a/01-primitive-types-and-inference.test.ts`
-3. **Run the tests**: `npm test -- test-types/chapter-a/`
+3. **Run the tests**: `pnpm test test-types/chapter-a/`
 4. **Complete the checkpoints**: Look for 🫵 in the test file
 5. **Move to Chapter B**: `test-types/chapter-b/README.md`
 
