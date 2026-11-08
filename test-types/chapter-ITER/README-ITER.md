@@ -169,6 +169,14 @@ This chapter teaches advanced TypeScript type concepts through a carefully struc
 
 ---
 
+## ITER09: Intersection Types
+**Focus:** Combining types with `&` (formerly in Chapter E)
+
+- **Key concepts:** intersection vs union, intersections with generics and functions, mixins, composable configurations, builders, conflicting properties
+- **Prerequisite:** ITER03 (generics)
+
+---
+
 ## Recommended Learning Path
 
 ### Beginner Path (Foundations)

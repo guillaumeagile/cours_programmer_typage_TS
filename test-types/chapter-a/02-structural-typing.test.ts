@@ -1,17 +1,17 @@
 /**
- * Chapter A — Section A3: Structural typing
- * Theory: ./README.md#a3-structural-typing
+ * Chapter A — Section A2: Structural typing   (~10 min)
+ * Theory: ./README.md#a2-structural-typing
  *
  * Goals
  *   - understand that TypeScript compares types by shape, not by name
  *   - see the trap: two concepts with the same shape can be swapped
- *   - fix it with branded types
+ *     (the fix, branded types and value objects, comes in Chapter C)
  *
  * Markers: `@ts-expect-error` = deliberate type error (delete it to see the message),
  *          😱 = trap, 🫵 = exercise.
  */
 
-describe('A3. Structural typing', () => {
+describe('A2. Structural typing', () => {
   describe('1. Same shape = compatible', () => {
     it('accepts a value of another type with the same shape', () => {
       type Point = { x: number; y: number };
@@ -76,51 +76,12 @@ describe('A3. Structural typing', () => {
       const user = createUser('alice@example.com', 'USER-123');
 
       expect(user.id).toBe('alice@example.com'); // 😱 the bug is in production
-    });
-  });
-
-  describe('3. The fix: branded types', () => {
-    // The "brand" is a fake property that only exists for the compiler.
-    type UserId = string & { readonly __brand: 'UserId' };
-    type Email = string & { readonly __brand: 'Email' };
-
-    // The only way to obtain a branded value is through these functions:
-    // a good place to validate the input.
-    const userId = (value: string): UserId => value as UserId;
-    const email = (value: string): Email => {
-      if (!value.includes('@')) throw new Error(`Invalid email: ${value}`);
-      return value as Email;
-    };
-
-    function createUser(id: UserId, mail: Email) {
-      return { id, mail };
-    }
-
-    it('accepts correctly branded values', () => {
-      const user = createUser(userId('USER-123'), email('alice@example.com'));
-      expect(user.id).toBe('USER-123');
-    });
-
-    it('refuses swapped arguments', () => {
-      // @ts-expect-error — an Email is not a UserId
-      createUser(email('alice@example.com'), userId('USER-123'));
-    });
-
-    it('refuses a plain string', () => {
-      // @ts-expect-error — a raw string has no brand
-      createUser('USER-123', email('alice@example.com'));
-    });
-
-    it('is still a string at runtime: no cost', () => {
-      const id = userId('USER-123');
-      expect(typeof id).toBe('string');
-      expect(id.startsWith('USER')).toBe(true);
+      // How to make the compiler see it: Chapter C (branded types, value objects).
     });
   });
 
   describe('🫵 Exercises', () => {
-    it.todo('🫵 A3.1 create branded `OrderId` and `ProductId`, and a function `addToOrder(order, product)`');
-    it.todo('🫵 A3.2 add validation to the `OrderId` constructor (must start with "ORD-") and test the error');
-    it.todo('🫵 A3.3 in your own words: one advantage and one drawback of structural typing');
+    it.todo('🫵 A2.1 write a `Discount = { rate: number }` and a `Tax = { rate: number }`: can you pass a Tax where a Discount is expected? Why?');
+    it.todo('🫵 A2.2 in your own words: one advantage and one drawback of structural typing');
   });
 });

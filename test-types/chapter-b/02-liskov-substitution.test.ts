@@ -1,6 +1,6 @@
 /**
- * Chapter A — Section A6: Liskov Substitution Principle (the "L" of SOLID)
- * Theory: ./README.md#a6-liskov-substitution-principle
+ * Chapter B — Section B2: Liskov Substitution Principle (the "L" of SOLID)   (~10 min)
+ * Theory: ./README.md#b2-liskov-substitution-principle
  *
  * Goals
  *   - see a subclass that compiles but breaks its parent's contract
@@ -11,7 +11,7 @@
  *          😱 = trap, 🫵 = exercise.
  */
 
-describe('A6. Liskov Substitution Principle', () => {
+describe('B2. Liskov Substitution Principle', () => {
   describe('1. A hierarchy that breaks the contract', () => {
     // Contract: "every Shape has an area"
     abstract class Shape {
@@ -120,8 +120,7 @@ describe('A6. Liskov Substitution Principle', () => {
   });
 
   describe('🫵 Exercises', () => {
-    it.todo('🫵 A6.1 add a `Shape3D` interface with getVolume(), and a `Cube` class; which lists accept a Cube?');
-    it.todo('🫵 A6.2 classic: is a `Square extends Rectangle` with setWidth()/setHeight() a Liskov violation? Prove it with a test');
-    it.todo('🫵 A6.3 find a Liskov violation in a codebase you know (hint: methods that throw "not supported")');
+    it.todo('🫵 B2.1 add a `Shape3D` interface with getVolume(), and a `Cube` class; which lists accept a Cube?');
+    it.todo('🫵 B2.2 classic: is a `Square extends Rectangle` with setWidth()/setHeight() a Liskov violation? Prove it with a test');
   });
 });

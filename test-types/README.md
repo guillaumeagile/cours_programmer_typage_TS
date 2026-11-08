@@ -1,109 +1,44 @@
-# Understanding Type Systems: A Practical Course
+# Type Systems as a Design Tool
 
-## Overview
+A 3-hour course for **Bachelor 3rd-year** students. It uses TypeScript, but the ideas apply to any
+typed language: types as constraints, low coupling, domain types, honest functions, and illegal states
+made unrepresentable.
 
-This course teaches **type systems as a design tool** for writing better software. While using TypeScript as the language vehicle, the concepts apply across Object-Oriented languages (Java, C#, Python) and Functional languages (Haskell, Scala, Rust).
+**Prerequisites**: basic JavaScript (variables, functions, objects), classes in any OO language, and
+having written at least one unit test.
 
-The course emphasizes:
-- **Types as constraints** that create cohesion and prevent bugs
-- **Abstraction** to reduce coupling and enable flexibility
-- **Domain-driven design** through expressive types
-- **Type safety** as the fastest feedback loop for correctness
+## The 3-hour session
 
-## Course Structure
+| Time | Chapter | Main idea | Files |
+|------|---------|-----------|-------|
+| 0:00 – 0:40 | [A. Types as Constraints](./chapter-a/README.md) | A type restricts values. TypeScript compares shapes. Narrow instead of casting. | 3 |
+| 0:40 – 1:10 | [B. Coupling & Abstraction](./chapter-b/README.md) | Depend on contracts, inject dependencies, respect Liskov. | 2 |
+| 1:10 – 1:20 | *Break* | | |
+| 1:20 – 1:50 | [C. Domain Types & Value Objects](./chapter-c/README.md) | `Email` rather than `string`: validate once, then trust the type. | 1 |
+| 1:50 – 2:25 | [D. Honest Functions](./chapter-d/README.md) | Pure functions, and signatures that admit absence (`T \| undefined`) and failure (`Result`). | 1 |
+| 2:25 – 2:55 | [E. Illegal States Unrepresentable](./chapter-e/README.md) | One type per state, `never` for exhaustiveness. | 1 |
+| 2:55 – 3:00 | Wrap-up | | |
 
-Each chapter has:
-- **Explanations** (`.md` files) - Concepts and theory
-- **Working Examples** (`.test.ts` files) - Runnable code demonstrating concepts
-- **Checkpoints** (🫵) - Exercises to verify understanding
+Each chapter builds on the previous ones, and each concept appears in **one** chapter only:
+structural typing in A, then branded types in C; narrowing in A, then `Result` in D, then
+discriminated unions in E. [TEACHING_GUIDE.md](./TEACHING_GUIDE.md) gives the facilitator's run sheet.
 
-### Chapter A: Cohesion - Types as Constraints
-**How types create structure and enforce constraints** (6 sections, one test file each)
+Not covered in the 3 hours: [going-further/](./going-further/README.md) (state coupling, Jest vs
+Vitest) and [chapter-ITER/](./chapter-ITER/README.md) (advanced types).
 
-- A1. Primitive types & inference
-- A2. Object types (`type`, `interface`, optional / `readonly`)
-- A3. Structural typing and branded types
-- A4. Classes & inheritance, polymorphism
-- A5. Narrowing (`typeof`, `instanceof`, `in`, type predicates, casts)
-- A6. Liskov Substitution Principle
+## How to work
 
-### Chapter B: Coupling & Abstraction
-**How typing induces coupling and how abstraction solves it**
+Each section is a test file, to read from top to bottom. The chapter README holds the short theory.
 
-- Tight coupling through concrete types
-- Abstraction as a decoupling mechanism
-- Interfaces and contracts
-- Dependency Injection (the simple way)
-- Orthogonality through abstraction
-- Testability through DI
-
-### Chapter C: Strong Typing & Clean Code
-**Building expressive, maintainable domain models**
-
-- Primitive Obsession anti-pattern
-- Value Objects as types
-- Anemic Objects anti-pattern
-- Single Responsibility Principle (SRP)
-- Domain-Driven Design (DDD) through types
-- Fine-grained vs. broad types
-- SOLID principles applied
-
-### Chapter D: Honest Functions with Types
-**Using types to reveal intent and guarantee correctness**
-
-- Pure functions and side effects
-- Input types as contracts
-- Output types as promises
-- Semantic types (not just `string` or `number`)
-- Type-driven function design
-- Composability through types
-
-### Chapter E: Type Safety & Feedback
-**Making illegal states unrepresentable**
-
-- Illegal state patterns
-- Null and exceptions as anti-patterns
-- Option/Maybe types
-- Result/Either types
-- Monads as type-safe abstractions
-- Fast feedback loops
-
-## How to Use This Course
-
-1. **Read** the explanation files (`.md`) to understand concepts
-2. **Study** the working examples (`.test.ts` files)
-3. **Run** the tests: `pnpm test test-types/`
-4. **Complete** the checkpoints (🫵) to verify understanding
-5. **Experiment** - modify examples and observe type errors
-
-## Running Tests
+| Marker | Meaning |
+|--------|---------|
+| `// @ts-expect-error` | The next line is a **deliberate type error**, and the compiler checks that it really fails. 👉 Delete the comment to read the error message in your IDE. |
+| `// 😱` | A trap: the code compiles and runs, but does something you probably did not expect. |
+| `it.todo('🫵 ...')` | An exercise. Replace `it.todo` with `it` and write the test. In class, do the first exercise of each file; the others are homework. |
 
 ```bash
-# Run all type-system tests
-pnpm test test-types/
-
-# Run a specific chapter
-pnpm test test-types/chapter-a/
-
-# Run with watch mode
-pnpm test test-types/ --watch
+pnpm install                       # once
+pnpm test test-types/chapter-a     # one chapter
+pnpm test test-types/chapter-c/01  # one file
+pnpm test test-types/chapter-a --watch
 ```
-
-## Prerequisites
-
-- Audience: Bachelor, 3rd year
-- Basic JavaScript knowledge (variables, functions, objects)
-- Familiarity with OOP concepts (classes, inheritance)
-- Understanding of testing frameworks (Jest)
-
-## Key Principles
-
-- **Types are constraints** - They prevent invalid states
-- **Abstraction reduces coupling** - Depend on contracts, not implementations
-- **Domain types reveal intent** - `Email` is clearer than `string`
-- **Type safety is feedback** - Errors caught at compile-time, not runtime
-- **Illegal states are unrepresentable** - Use types to make bugs impossible
-
----
-
-**Start with [Chapter A: Cohesion](./chapter-a/README.md)**

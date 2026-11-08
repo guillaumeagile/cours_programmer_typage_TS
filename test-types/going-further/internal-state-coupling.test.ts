@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 
 /**
- * CHAPTER B - Part 00: Internal State Coupling
+ * Going further (after Chapter B): Internal State Coupling
  * 
  * This test file demonstrates:
  * 1. How functions become coupled to internal state

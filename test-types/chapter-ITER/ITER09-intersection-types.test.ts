@@ -4,7 +4,7 @@
 
 
 
-describe('Chapter E: Intersection Types', () => {
+describe('ITER09: Intersection Types', () => {
   describe('1. Understanding Intersection Types', () => {
     it('should combine multiple types with intersection', () => {
       // ✓ Intersection combines types

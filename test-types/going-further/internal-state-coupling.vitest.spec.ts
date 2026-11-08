@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
 
 /**
- * CHAPTER B - Part 00: Internal State Coupling (VITEST VERSION)
+ * Going further (after Chapter B): Internal State Coupling (VITEST VERSION)
  * 
  * This test file demonstrates:
  * 1. How functions become coupled to internal state
  * 2. Temporal coupling through state dependencies
  * 3. How to reduce coupling through pure functions and immutability
  * 
- * NOTE: This is the VITEST version. Compare with 00-internal-state-coupling.test.ts (Jest version)
+ * NOTE: This is the VITEST version. Compare with internal-state-coupling.test.ts (Jest version)
  * Both work identically - the only difference is the import statement.
  */
 
