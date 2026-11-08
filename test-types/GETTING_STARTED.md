@@ -17,7 +17,7 @@ test-types/README.md
 test-types/chapter-a/README.md
 
 # Study the examples
-test-types/chapter-a/01-basics.test.ts
+test-types/chapter-a/01-primitive-types-and-inference.test.ts
 
 # Run the tests
 npm test -- test-types/chapter-a/
@@ -47,7 +47,12 @@ test-types/
 │
 ├── chapter-a/               # Cohesion
 │   ├── README.md
-│   └── 01-basics.test.ts
+│   ├── 01-primitive-types-and-inference.test.ts
+│   ├── 02-object-types.test.ts
+│   ├── 03-structural-typing.test.ts
+│   ├── 04-classes-and-inheritance.test.ts
+│   ├── 05-narrowing.test.ts
+│   └── 06-liskov-substitution.test.ts
 │
 ├── chapter-b/               # Coupling & Abstraction
 │   ├── README.md
@@ -89,19 +94,20 @@ npm test -- test-types/ --watch
 
 ### Run a Specific Test File
 ```bash
-npm test -- test-types/chapter-a/01-basics.test.ts
+npm test -- test-types/chapter-a/01-primitive-types-and-inference.test.ts
 ```
 
 ## Learning Outcomes by Chapter
 
-### Chapter A: Cohesion
-- Understand what types are
-- Learn about type systems
-- Know when to use explicit annotations
-- Recognize structural typing
-- See how types create cohesion
+### Chapter A: Cohesion - Types as Constraints
+- Use primitive types, and know when inference is enough
+- Describe object shapes with `type` and `interface`
+- Recognize structural typing and its trap (branded types)
+- Build class hierarchies and use polymorphism
+- Narrow broad types safely instead of casting
+- Spot a Liskov Substitution violation
 
-**Time**: 1-2 hours
+**Time**: about 3 hours
 
 ### Chapter B: Coupling & Abstraction
 - Identify tight coupling
@@ -206,7 +212,7 @@ Checkpoints are **not auto-graded**. They require you to:
 ## Next Steps
 
 1. **Start with Chapter A**: `test-types/chapter-a/README.md`
-2. **Study the examples**: `test-types/chapter-a/01-basics.test.ts`
+2. **Study the examples**: `test-types/chapter-a/01-primitive-types-and-inference.test.ts`
 3. **Run the tests**: `npm test -- test-types/chapter-a/`
 4. **Complete the checkpoints**: Look for 🫵 in the test file
 5. **Move to Chapter B**: `test-types/chapter-b/README.md`

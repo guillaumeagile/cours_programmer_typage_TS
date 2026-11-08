@@ -8,51 +8,30 @@ A comprehensive course on **type systems as a design tool** for writing better s
 
 ---
 
-## Chapter A: Cohesion
+## Chapter A: Cohesion - Types as Constraints
 **How types create structure and enforce constraints**
 
-### Concepts
-- What is a type? (set of constraints)
-- Type systems (rules for assigning and checking types)
-- Type inference vs. explicit annotations
-- Structural typing (shape-based compatibility)
-- Nominal typing (name-based compatibility)
-- Branded types (preventing accidental mixing)
-- Classes as types (nominal typing in TypeScript)
-- Inheritance and type hierarchies
-- Abstract classes and polymorphism
-- Type narrowing (instanceof, type predicates)
-- Type assertions/casts
-- Classes vs. Interfaces
-- Duck typing and structural vs. nominal typing
+Plan and theory: `chapter-a/README.md`. One test file per section:
+
+| #  | File                                         | Concepts                                                  |
+|----|----------------------------------------------|-----------------------------------------------------------|
+| A1 | `01-primitive-types-and-inference.test.ts`   | primitive types, annotations, inference, type errors      |
+| A2 | `02-object-types.test.ts`                    | object shapes, optional / `readonly`, `type` vs `interface` |
+| A3 | `03-structural-typing.test.ts`               | structural vs nominal typing, branded types               |
+| A4 | `04-classes-and-inheritance.test.ts`         | classes as types, `extends`, `abstract`, polymorphism, `implements` |
+| A5 | `05-narrowing.test.ts`                       | `typeof`, `instanceof`, `in`, type predicates, casts, `unknown` |
+| A6 | `06-liskov-substitution.test.ts`             | Liskov Substitution, Interface Segregation                |
 
 ### Learning Outcomes
-- Understand types as constraints, not just syntax
-- Know when to use inference vs. explicit annotations
-- Recognize structural typing in TypeScript
-- Understand TypeScript's hybrid approach (structural + nominal)
-- Use branded types to prevent accidental type mixing
-- Design inheritance hierarchies effectively
-- Apply polymorphism for flexible code
-- Distinguish between classes and interfaces
+- Understand types as constraints checked at compile-time
+- Know when inference is enough and when to annotate
+- Recognize structural typing and use branded types against accidental mixing
+- Design class hierarchies and apply polymorphism
+- Narrow broad types instead of casting
+- Recognize a Liskov Substitution violation
 
-### Files
-- **Explanation**: `chapter-a/README.md`
-- **Basics**: `chapter-a/01-basics.test.ts` (structural typing, interfaces)
-- **Classes & Inheritance**: `chapter-a/02-classes-inheritance.test.ts` (405 lines, streamlined)
-- **Type Inference**: `chapter-a/03-type-inference.md` & `.test.ts`
-- **Type Reuse**: `chapter-a-prime/01-type-reuse.test.ts` (module organization)
-
-### Key Checkpoints 🫵
-- A.1: Explain what types are and why they matter
-- A.2: Design a Product type with constraints
-- A.3: Identify type errors and fix them
-- A2.1: Explain why classes are types
-- A2.2: Design an inheritance hierarchy
-- A2.3: Identify when to use casts vs. type guards
-- A2.4: Implement polymorphism with abstract classes
-- A2.5: Explain structural vs. nominal typing
-- A2.6: Use branded types to prevent accidental mixing
+### Exercises 🫵
+Each section ends with 3 exercises written as `it.todo('🫵 A<n>.<m> ...')`.
 
 ---
 
@@ -252,7 +231,7 @@ npm test -- test-types/chapter-e/
 npm test -- test-types/ --watch
 
 # Run a specific test file
-npm test -- test-types/chapter-a/01-basics.test.ts
+npm test -- test-types/chapter-a/01-primitive-types-and-inference.test.ts
 ```
 
 ---
@@ -309,30 +288,22 @@ While this course uses **TypeScript**, the concepts apply across languages:
 
 ## Course Statistics
 
-- **Total Chapters**: 5 (A, A-Prime, B, C, D, E)
+- **Total Chapters**: 5 (A, B, C, D, E)
 - **Total Concepts**: 50+
 - **Working Examples**: 80+ (streamlined for 1-hour course)
 - **Checkpoints**: 25+ (with human-written answers required)
 - **Estimated Study Time**: 15-20 hours (optimized)
-- **Chapter A Test File**: 405 lines (reduced from 965 for clarity)
 
 ---
 
-## Recent Optimizations
+## Recent Changes
 
-### Chapter A Streamlining (Dec 2025)
-- **Removed redundancies**: Consolidated 30+ test cases → 20 focused tests
-- **Reduced file size**: 965 lines → 405 lines (58% reduction)
-- **Improved clarity**: One clear example per concept instead of multiple variations
-- **Better pacing**: Suitable for 1-hour course delivery
-- **All tests passing**: 20/20 tests ✅
-
-### Key Improvements
-- Structural vs. Nominal typing clearly explained
-- Branded types section expanded with practical examples
-- Type inference demonstrated across all chapters
-- Module organization pattern in Chapter A-Prime
-- Strategic checkpoints (🫵) require human-written answers
+### Chapter A restructured for Bachelor 3 (Nov 2026)
+- 6 numbered sections, one test file each, plan in `chapter-a/README.md`
+- Removed duplicates (inference, branded types and Liskov were each covered 2-3 times)
+- Theory merged into the chapter README (the separate `02-*.md` / `03-*.md` files are gone)
+- Deliberate type errors are now verified with `// @ts-expect-error`
+- Exercises are `it.todo` instead of pre-filled answers
 
 ---
 

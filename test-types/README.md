@@ -17,15 +17,15 @@ Each chapter has:
 - **Working Examples** (`.test.ts` files) - Runnable code demonstrating concepts
 - **Checkpoints** (🫵) - Exercises to verify understanding
 
-### Chapter A: Cohesion
-**How types create structure and enforce constraints**
+### Chapter A: Cohesion - Types as Constraints
+**How types create structure and enforce constraints** (6 sections, one test file each)
 
-- What is a type?
-- Primitive types vs. complex types
-- Type systems as design tools
-- Type inference and explicit annotations
-- Object shape checking
-- Module scoping and declaration
+- A1. Primitive types & inference
+- A2. Object types (`type`, `interface`, optional / `readonly`)
+- A3. Structural typing and branded types
+- A4. Classes & inheritance, polymorphism
+- A5. Narrowing (`typeof`, `instanceof`, `in`, type predicates, casts)
+- A6. Liskov Substitution Principle
 
 ### Chapter B: Coupling & Abstraction
 **How typing induces coupling and how abstraction solves it**
@@ -91,7 +91,8 @@ npm test -- test-types/ --watch
 
 ## Prerequisites
 
-- Basic TypeScript knowledge (variables, functions, basic types)
+- Audience: Bachelor, 3rd year
+- Basic JavaScript knowledge (variables, functions, objects)
 - Familiarity with OOP concepts (classes, inheritance)
 - Understanding of testing frameworks (Jest)
 

@@ -63,32 +63,25 @@ For a semester course (1 hour per week):
 
 ## Chapter-by-Chapter Guide
 
-### Chapter A: Cohesion (1-2 hours)
+### Chapter A: Cohesion - Types as Constraints (about 3 hours, Bachelor 3)
 
-**Goal**: Students understand types as constraints and see how they create cohesion.
+**Goal**: Students understand types as constraints checked at compile-time, from primitives to class hierarchies.
 
-**Key Concepts**:
-- Types define valid values and operations
-- Type systems enforce constraints
-- Explicit annotations are clearer than inference
-- Structural typing (shape-based)
-- Types group related data
+**Sequence** (one test file per section, ~30 min each): A1 primitives & inference → A2 object types →
+A3 structural typing & branded types → A4 classes & inheritance → A5 narrowing → A6 Liskov.
 
 **Teaching Tips**:
-1. Start with a simple example: `const age: number = -5` (invalid but allowed)
-2. Show how types prevent this: `class Age { constructor(value: number) { if (value < 0) throw new Error(...) } }`
-3. Have students design a `Product` type with constraints
-4. Show how types prevent mixing up parameters
+1. Live-code each file top to bottom; every deliberate type error is marked `// @ts-expect-error`:
+   delete the comment in front of the class so students read the real compiler message.
+2. Stop on every `😱` test: the code compiles but misbehaves. These are the discussion points
+   (types erased at runtime, `5 + "a"`, swapped string ids, wrong casts, `Line extends Shape`).
+3. Exercises are `it.todo('🫵 ...')`: students turn them into real tests during the session.
 
 **Common Misconceptions**:
 - "Types are just syntax" → No, they're constraints that prevent bugs
-- "Inference is always better" → No, explicit is clearer
-- "Types are only for big projects" → No, they help at any scale
-
-**Checkpoint Focus**:
-- A.1: Why explicit annotations matter
-- A.2: Design a Product type
-- A.3: Identify type errors
+- "Inferred types are less safe" → No, inference is checked exactly like an annotation
+- "Types exist at runtime" → No, `type`/`interface` are erased; only classes survive
+- "If it compiles, the subclass is correct" → No, Liskov is about behaviour (A6)
 
 ### Chapter B: Coupling & Abstraction (2-3 hours)
 
