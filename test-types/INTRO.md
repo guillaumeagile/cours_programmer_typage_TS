@@ -1,8 +1,7 @@
 ---
 marp: true
 paginate: true
-title: Les types, alliés de l'ère agentique
----
+title: Les types, alliés du code 
 
 <!--
 Diapos d'introduction au cours (support pour l'enseignant·e).
@@ -11,7 +10,7 @@ Rendu : extension VS Code « Marp for VS Code », ou `pnpm dlx @marp-team/marp-c
 Durée suggérée : 15 min environ.
 -->
 
-# Les types, alliés de l'ère agentique
+# Les types, alliés de l'agentic coding
 
 **Systèmes de types comme outil de conception**
 
@@ -24,6 +23,12 @@ important quand une partie du code est écrite par une IA.
 -->
 
 ---
+
+# Les types, alliés de l'agentic coding
+
+**Systèmes de types comme outil de conception**
+
+BUT 3 · 3 h · chapitres A à E · TypeScript (mais pas seulement)
 
 ## Une question pour commencer
 

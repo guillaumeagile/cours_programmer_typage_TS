@@ -105,19 +105,88 @@ describe('A1. Types, inference and object types', () => {
     });
 
     it('`type` and `interface` both work; only `type` can name a union', () => {
-      interface Customer {
+
+      interface HasName {
         name: string;
-      }
+      }/*
+       type HasName = {
+        name: string;
+      }*/
+
+      const james : HasName = { name: 'James' }  // essaye avec le type
+
+      // The fundamental difference: an interface can only name an object shape.
+      // A `type` can name ANY type: a union, a primitive, a tuple, a function, an object…
+
       type OrderStatus = 'pending' | 'shipped' | 'delivered';
-
-      const customer: Customer = { name: 'Alice' };
       let status: OrderStatus = 'pending';
-
       // @ts-expect-error — not one of the allowed values
       status = 'lost';
-
-      expect(customer.name).toBe('Alice');
       expect(status).toBe('lost');
+
+
+      interface HasId {
+        id: string;
+      }
+
+      // 'union' sur 2 interfaces
+      let customer: HasName | HasId = { name: 'Bond', id: "007" }
+      // @ts-expect-error
+      expect(customer.name).toBe('Bond');
+      // @ts-expect-error
+      expect(customer.id).toBe('007');
+
+      //attention à la confusion entre les valeurs et les types
+      let client : HasName | HasId
+      type TypeDeClient = HasName | HasId   // mais en pratiqe on n'écrit jamais TypeDeT , on écrit juste T, et T est un type
+      const client1 :  TypeDeClient = { name: 'Bond'  }
+      expect(client1.name).toBe('Bond');
+      const client2 :  TypeDeClient = { id: '007'  }
+      expect(client2.id).toBe('007');
+
+      // La convention TypeScript (et celle de la plupart des langages) est :
+      // -> Types, interfaces, classes, alias de type, enums : PascalCase. Exemples : Client, OrderStatus, HasName, Money.
+      // -> Variables, fonctions, paramètres, propriétés : camelCase. Exemples : customer, lineTotal, formatOrderId.
+      // -> Constantes globales (parfois) : UPPER_SNAKE_CASE, par exemple MAX_QUANTITY.
+
+
+      // produit sur 2 interfaces
+      const customer2: HasName & HasId = { name: 'Bond', id: "007" }
+      expect(customer2.name).toBe('Bond');
+      expect(customer2.id).toBe('007');
+
+//    A & B : une valeur doit satisfaire les deux types à la fois. Pour des objets, ça revient à réunir leurs champs, comme un enregistrement qui contient tout ce qu'il y a dans A et dans B. C'est le produit au sens « ET ».
+//    A | B : une valeur est d'un type ou de l'autre. C'est la somme au sens « OU », celle des unions discriminées.
+
+      // type anonyme: il n'a pas de nom, ni d'interface
+      let anonymousCustomer = { name: 'Bond', id: "007" }
+      expect(anonymousCustomer.name).toBe('Bond');
+
+
+
+
+
+
+
+
+
+    });
+
+    it('an interface can be declared twice: the declarations merge (a `type` cannot)', () => {
+      interface Shipment {
+        trackingId: string;
+      }
+      interface Shipment {
+        carrier: string; // merged into the first declaration
+      }
+
+      const shipment: Shipment = { trackingId: 'TRK-1', carrier: 'DHL' };
+
+      // @ts-expect-error — `carrier` is part of the merged interface: it is required
+      const missing: Shipment = { trackingId: 'TRK-2' };
+
+      expect(shipment.carrier).toBe('DHL');
+      expect(missing.trackingId).toBe('TRK-2');
     });
   });
 
