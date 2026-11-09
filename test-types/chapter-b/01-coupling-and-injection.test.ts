@@ -1,5 +1,5 @@
 /**
- * Chapter B — Section B1: Coupling and dependency injection   (~15 min)
+ * Chapter B — Section B1: Coupling and dependency injection   (~12 min)
  * Theory: ./README.md#b1-coupling-and-dependency-injection
  *
  * Goals

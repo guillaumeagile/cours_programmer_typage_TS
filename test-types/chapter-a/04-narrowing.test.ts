@@ -1,5 +1,5 @@
 /**
- * Chapter A — Section A4: Narrowing   (~15 min)
+ * Chapter A — Section A4: Narrowing   (~12 min)
  * Theory: ./README.md#a4-narrowing
  *
  * Goals

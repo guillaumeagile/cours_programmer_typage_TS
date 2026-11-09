@@ -1,6 +1,6 @@
 # Chapter A: Types as Constraints
 
-> **Duration**: 60 min, in a 3-hour session covering chapters A to E ([plan](../README.md#the-3-hour-session)).
+> **Duration**: 55 min, after a 15-min intro, in a 3-hour session covering chapters A to E ([plan](../README.md#the-3-hour-session)).
 
 A **type** is a set of constraints: it says which values are allowed and which operations you may
 apply to them. TypeScript checks those constraints **before the program runs** (at compile-time),
@@ -8,10 +8,10 @@ whereas JavaScript only discovers mistakes at runtime.
 
 | #  | Section | File | Time |
 |----|---------|------|------|
-| A1 | [Types, inference and object types](#a1-types-inference-and-object-types) | [`01-types-and-objects.test.ts`](./01-types-and-objects.test.ts) | 10 min |
+| A1 | [Types, inference and object types](#a1-types-inference-and-object-types) | [`01-types-and-objects.test.ts`](./01-types-and-objects.test.ts) | 8 min |
 | A2 | [Structural typing](#a2-structural-typing) | [`02-structural-typing.test.ts`](./02-structural-typing.test.ts) | 10 min |
 | A3 | [OOP in TypeScript: classes and interfaces](#a3-oop-in-typescript-classes-and-interfaces) | [`03-classes-and-interfaces.test.ts`](./03-classes-and-interfaces.test.ts) | 25 min |
-| A4 | [Narrowing](#a4-narrowing) | [`04-narrowing.test.ts`](./04-narrowing.test.ts) | 15 min |
+| A4 | [Narrowing](#a4-narrowing) | [`04-narrowing.test.ts`](./04-narrowing.test.ts) | 12 min |
 
 ```bash
 pnpm test test-types/chapter-a           # the whole chapter

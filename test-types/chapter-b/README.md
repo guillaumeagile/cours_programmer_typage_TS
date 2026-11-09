@@ -1,6 +1,6 @@
 # Chapter B: Coupling & Abstraction
 
-> **Duration**: 25 min ([plan](../README.md#the-3-hour-session)).
+> **Duration**: 20 min ([plan](../README.md#the-3-hour-session)).
 
 **Coupling** measures how much a piece of code must know about another. A class that creates its own
 `SmtpMailer` is tied to that concrete class: you cannot change it, and you cannot test the class
@@ -9,8 +9,8 @@ interface) and receives an implementation from outside.
 
 | #  | Section | File | Time |
 |----|---------|------|------|
-| B1 | [Coupling and dependency injection](#b1-coupling-and-dependency-injection) | [`01-coupling-and-injection.test.ts`](./01-coupling-and-injection.test.ts) | 15 min |
-| B2 | [Liskov substitution](#b2-liskov-substitution-principle) | [`02-liskov-substitution.test.ts`](./02-liskov-substitution.test.ts) | 10 min |
+| B1 | [Coupling and dependency injection](#b1-coupling-and-dependency-injection) | [`01-coupling-and-injection.test.ts`](./01-coupling-and-injection.test.ts) | 12 min |
+| B2 | [Liskov substitution](#b2-liskov-substitution-principle) | [`02-liskov-substitution.test.ts`](./02-liskov-substitution.test.ts) | 8 min |
 
 ```bash
 pnpm test test-types/chapter-b

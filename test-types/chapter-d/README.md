@@ -1,6 +1,6 @@
 # Chapter D: Honest Functions
 
-> **Duration**: 30 min ([plan](../README.md#the-3-hour-session)).
+> **Duration**: 25 min ([plan](../README.md#the-3-hour-session)).
 > File: [`01-honest-functions.test.ts`](./01-honest-functions.test.ts)
 
 ```bash

@@ -1,5 +1,5 @@
 /**
- * Chapter B — Section B2: Liskov Substitution Principle (the "L" of SOLID)   (~10 min)
+ * Chapter B — Section B2: Liskov Substitution Principle (the "L" of SOLID)   (~8 min)
  * Theory: ./README.md#b2-liskov-substitution-principle
  *
  * Goals

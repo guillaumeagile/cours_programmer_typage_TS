@@ -1,5 +1,5 @@
 /**
- * Chapter D — Section D1: Honest functions   (~30 min)
+ * Chapter D — Section D1: Honest functions   (~25 min)
  * Theory: ./README.md
  *
  * Goals

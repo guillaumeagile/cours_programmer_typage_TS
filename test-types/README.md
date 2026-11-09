@@ -11,11 +11,12 @@ having written at least one unit test.
 
 | Time | Chapter | Main idea | Files |
 |------|---------|-----------|-------|
-| 0:00 – 1:00 | [A. Types as Constraints](./chapter-a/README.md) | A type restricts values. TypeScript compares shapes. OOP in TS: classes and interfaces, and how they differ from Java/C#. Narrow instead of casting. | 4 |
-| 1:00 – 1:25 | [B. Coupling & Abstraction](./chapter-b/README.md) | Depend on contracts, inject dependencies, respect Liskov. | 2 |
-| 1:25 – 1:35 | *Break* | | |
-| 1:35 – 2:00 | [C. Domain Types & Value Objects](./chapter-c/README.md) | `Email` rather than `string`: validate once, then trust the type. | 1 |
-| 2:00 – 2:30 | [D. Honest Functions](./chapter-d/README.md) | Pure functions, and signatures that admit absence (`T \| undefined`) and failure (`Result`). | 1 |
+| 0:00 – 0:15 | [Intro](./INTRO.md) | Types as an ally of LLMs and agents; types carry the domain semantics; from OOP to FP. | slides |
+| 0:15 – 1:10 | [A. Types as Constraints](./chapter-a/README.md) | A type restricts values. TypeScript compares shapes. OOP in TS: classes and interfaces, and how they differ from Java/C#. Narrow instead of casting. | 4 |
+| 1:10 – 1:30 | [B. Coupling & Abstraction](./chapter-b/README.md) | Depend on contracts, inject dependencies, respect Liskov. | 2 |
+| 1:30 – 1:40 | *Break* | | |
+| 1:40 – 2:05 | [C. Domain Types & Value Objects](./chapter-c/README.md) | `Email` rather than `string`: validate once, then trust the type. | 1 |
+| 2:05 – 2:30 | [D. Honest Functions](./chapter-d/README.md) | Pure functions, and signatures that admit absence (`T \| undefined`) and failure (`Result`). | 1 |
 | 2:30 – 2:55 | [E. Illegal States Unrepresentable](./chapter-e/README.md) | One type per state, `never` for exhaustiveness. | 1 |
 | 2:55 – 3:00 | Wrap-up | | |
 
