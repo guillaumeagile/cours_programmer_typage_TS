@@ -37,7 +37,7 @@ pnpm test test-types/chapter-a --watch   # re-run on every save
 
 TypeScript compares types by **shape, not by name**. Two types with the same properties are
 compatible, a value with **more** properties fits, and a class fits an interface without `implements`.
-Java and C# are **nominal**: there, only declared relationships count.
+Java and C# are **nominal**: there, only declared names count.
 
 😱 **The trap**: `type UserId = string` and `type Email = string` are the same type, so swapped
 arguments compile. [Chapter C](../chapter-c/README.md) fixes this.

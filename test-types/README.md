@@ -23,7 +23,8 @@ Each chapter builds on the previous ones, and each concept appears in **one** ch
 structural typing in A (including for classes and interfaces), then branded types in C; narrowing in A, then `Result` in D, then
 discriminated unions in E. [TEACHING_GUIDE.md](./TEACHING_GUIDE.md) gives the facilitator's run sheet,
 and [INTRO.md](./INTRO.md) holds the opening slides (in French, Marp format): types as an ally of
-LLMs and agents, the power of compilers, type extension libraries, and the move from OOP to FP.
+LLMs and agents, the power of compilers, types as the carrier of domain semantics (pure domain vs
+infrastructure, bounded contexts), type extension libraries, and the move from OOP to FP.
 
 Not covered in the 3 hours: [going-further/](./going-further/README.md) (state coupling, Jest vs
 Vitest) and [chapter-ITER/](./chapter-ITER/README.md) (advanced types).

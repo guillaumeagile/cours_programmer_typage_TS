@@ -8,7 +8,7 @@ title: Les types, alliés de l'ère agentique
 Diapos d'introduction au cours (support pour l'enseignant·e).
 Format Marp : chaque `---` sépare une diapo, les commentaires HTML sont les notes de présentation.
 Rendu : extension VS Code « Marp for VS Code », ou `pnpm dlx @marp-team/marp-cli test-types/INTRO.md`.
-Durée suggérée : 10 à 15 min.
+Durée suggérée : 15 min environ.
 -->
 
 # Les types, alliés de l'ère agentique
@@ -163,6 +163,97 @@ Le compilateur TypeScript fait de l'analyse de flux (narrowing), on le verra au 
 
 TypeScript est au milieu : très expressif, mais **structurel** et **effacé à l'exécution**.
 C'est pour ça qu'il surprend ceux qui viennent de Java ou C# (chapitre A3).
+
+---
+
+## Le compilateur ne connaît que le sens qu'on lui donne
+
+```ts
+function transfer(from: string, to: string, amount: number): void
+```
+
+Pour le compilateur : deux chaînes et un nombre. Inverser `from` et `to`, passer un montant
+négatif, des centimes au lieu d'euros : **tout est valide**.
+
+```ts
+function transfer(from: AccountId, to: AccountId, amount: Money): Result<Transfer, TransferRefused>
+```
+
+Maintenant il sait : des comptes, de l'argent, un refus possible.
+
+👉 Le compilateur vérifie la **cohérence**, pas la **vérité**. Il ne manipule que la syntaxe et la
+sémantique que **nous** mettons dans le code.
+
+Porter la juste sémantique est un travail de **conception**, et c'est celui du développeur.
+
+<!--
+Lien avec l'IA : un agent reproduit la sémantique présente dans vos types. Des `string`
+partout, et il en écrira encore. Des types du domaine, et il est guidé (et bloqué) par eux.
+Le design des types est la décision que vous ne déléguez pas.
+-->
+
+---
+
+## Séparer le métier pur de la technique
+
+```
+┌─────────────── Technique : infra, effets de bord ───────────────┐
+│  HTTP, base de données, horloge, e-mails, logs, aléatoire       │
+│                                                                 │
+│      ┌─────────────── Métier pur ──────────────┐                │
+│      │  types du domaine, règles métier,       │                │
+│      │  fonctions pures, aucune entrée/sortie  │                │
+│      └─────────────────────────────────────────┘                │
+└─────────────────────────────────────────────────────────────────┘                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+```ts
+// Métier pur : décide, ne fait rien. Testable sans mock, sans base, sans date système.
+function decideRefund(order: Order, today: Date): Refund | RefundRefused
+
+// Technique : lit, appelle le métier, écrit.
+async function handleRefundRequest(orderId: OrderId): Promise<void> {
+  const order = await orders.load(orderId);           // effet
+  const decision = decideRefund(order, clock.now());  // pur
+  await refunds.save(decision);                       // effet
+}
+```
+
+Les types rendent la frontière **visible** : `Promise`, `Effect<A, E, R>`… signalent un effet.
+
+<!--
+Noms à citer : « functional core, imperative shell », architecture hexagonale (ports et
+adaptateurs). Dans le cours : l'injection (B), les fonctions pures et honnêtes (D).
+Bonus agentique : le cœur métier pur est l'endroit où l'on peut laisser travailler un agent
+en confiance, car tout y est vérifiable par les types et les tests.
+-->
+
+---
+
+## Les types établissent la sémantique du domaine
+
+En DDD, un mot n'a de sens précis **qu'à l'intérieur d'un contexte délimité**
+(*Bounded Context*). Le même « produit » n'est pas le même objet partout :
+
+```ts
+// catalogue/product.ts : ce qui compte pour vendre
+type Product = { sku: Sku; name: string; price: Money; description: string };
+
+// expedition/parcel.ts : ce qui compte pour livrer
+type Parcel = { sku: Sku; weight: Kilograms; dimensions: Dimensions };
+```
+
+- Les noms des types **sont** le langage du métier (*ubiquitous language*) : un glossaire exécutable.
+- Chaque contexte a **ses** types ; on ne partage pas un `Product` géant entre tous.
+- Passer d'un contexte à l'autre est une **fonction de traduction explicite**, vérifiée par le compilateur.
+
+👉 Les types ne servent pas qu'à éviter des bugs : ils **écrivent le modèle du domaine** dans le code.
+
+<!--
+Faire le lien avec le chapitre C (types du domaine, value objects) et E (un type par état).
+Un expert métier doit pouvoir lire les noms de vos types et s'y retrouver.
+-->
 
 ---
 
