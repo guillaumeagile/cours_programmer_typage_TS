@@ -1,6 +1,6 @@
 # Chapter B: Coupling & Abstraction
 
-> **Duration**: 30 min ([plan](../README.md#the-3-hour-session)).
+> **Duration**: 25 min ([plan](../README.md#the-3-hour-session)).
 
 **Coupling** measures how much a piece of code must know about another. A class that creates its own
 `SmtpMailer` is tied to that concrete class: you cannot change it, and you cannot test the class
@@ -9,7 +9,7 @@ interface) and receives an implementation from outside.
 
 | #  | Section | File | Time |
 |----|---------|------|------|
-| B1 | [Coupling and dependency injection](#b1-coupling-and-dependency-injection) | [`01-coupling-and-injection.test.ts`](./01-coupling-and-injection.test.ts) | 20 min |
+| B1 | [Coupling and dependency injection](#b1-coupling-and-dependency-injection) | [`01-coupling-and-injection.test.ts`](./01-coupling-and-injection.test.ts) | 15 min |
 | B2 | [Liskov substitution](#b2-liskov-substitution-principle) | [`02-liskov-substitution.test.ts`](./02-liskov-substitution.test.ts) | 10 min |
 
 ```bash
@@ -23,6 +23,7 @@ pnpm test test-types/chapter-b
 3. **Inject it** through the constructor: `constructor(private readonly mailer: Mailer)`.
 4. **Test with a fake**: a small class that implements the interface and records the calls.
 
+This builds on interfaces and `implements` ([A3](../chapter-a/README.md#a3-oop-in-typescript-classes-and-interfaces)).
 The compiler checks that whatever you inject fulfils the contract. Thanks to structural typing
 ([A2](../chapter-a/README.md#a2-structural-typing)), any object of the right shape will do.
 

@@ -1,5 +1,5 @@
 /**
- * Chapter D — Section D1: Honest functions   (~35 min)
+ * Chapter D — Section D1: Honest functions   (~30 min)
  * Theory: ./README.md
  *
  * Goals
@@ -97,7 +97,7 @@ describe('D1. Honest functions', () => {
       expect(parseAge('200')).toEqual({ ok: false, error: 'OUT_OF_RANGE' });
     });
 
-    it('the value is only reachable after checking `ok` (narrowing, see A3)', () => {
+    it('the value is only reachable after checking `ok` (narrowing, see A4)', () => {
       const result = parseAge('42');
 
       // @ts-expect-error — `value` does not exist on the failure case

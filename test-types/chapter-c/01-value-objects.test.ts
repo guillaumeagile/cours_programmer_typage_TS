@@ -1,5 +1,5 @@
 /**
- * Chapter C — Section C1: Domain types and value objects   (~30 min)
+ * Chapter C — Section C1: Domain types and value objects   (~25 min)
  * Theory: ./README.md
  *
  * Goals

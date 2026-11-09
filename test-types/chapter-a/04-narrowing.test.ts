@@ -1,6 +1,6 @@
 /**
- * Chapter A — Section A3: Narrowing   (~15 min)
- * Theory: ./README.md#a3-narrowing
+ * Chapter A — Section A4: Narrowing   (~15 min)
+ * Theory: ./README.md#a4-narrowing
  *
  * Goals
  *   - narrow a broad type with typeof, instanceof and `in`
@@ -24,7 +24,7 @@ class ShippedOrder extends Order {
   }
 }
 
-describe('A3. Narrowing', () => {
+describe('A4. Narrowing', () => {
   describe('1. typeof for primitive types', () => {
     function formatPriceUnsafe(price: number | string): string {
       // @ts-expect-error — toFixed() does not exist on string, so not on number | string
@@ -125,7 +125,7 @@ describe('A3. Narrowing', () => {
   });
 
   describe('🫵 Exercises', () => {
-    it.todo('🫵 A3.1 write `parseQuantity(input: string | number): number` that also accepts "3"');
-    it.todo('🫵 A3.2 write `isCardPayment(p): p is CardPayment` and use it with Array.filter');
+    it.todo('🫵 A4.1 write `parseQuantity(input: string | number): number` that also accepts "3"');
+    it.todo('🫵 A4.2 write `isCardPayment(p): p is CardPayment` and use it with Array.filter');
   });
 });

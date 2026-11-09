@@ -11,16 +11,16 @@ having written at least one unit test.
 
 | Time | Chapter | Main idea | Files |
 |------|---------|-----------|-------|
-| 0:00 – 0:40 | [A. Types as Constraints](./chapter-a/README.md) | A type restricts values. TypeScript compares shapes. Narrow instead of casting. | 3 |
-| 0:40 – 1:10 | [B. Coupling & Abstraction](./chapter-b/README.md) | Depend on contracts, inject dependencies, respect Liskov. | 2 |
-| 1:10 – 1:20 | *Break* | | |
-| 1:20 – 1:50 | [C. Domain Types & Value Objects](./chapter-c/README.md) | `Email` rather than `string`: validate once, then trust the type. | 1 |
-| 1:50 – 2:25 | [D. Honest Functions](./chapter-d/README.md) | Pure functions, and signatures that admit absence (`T \| undefined`) and failure (`Result`). | 1 |
-| 2:25 – 2:55 | [E. Illegal States Unrepresentable](./chapter-e/README.md) | One type per state, `never` for exhaustiveness. | 1 |
+| 0:00 – 1:00 | [A. Types as Constraints](./chapter-a/README.md) | A type restricts values. TypeScript compares shapes. OOP in TS: classes and interfaces, and how they differ from Java/C#. Narrow instead of casting. | 4 |
+| 1:00 – 1:25 | [B. Coupling & Abstraction](./chapter-b/README.md) | Depend on contracts, inject dependencies, respect Liskov. | 2 |
+| 1:25 – 1:35 | *Break* | | |
+| 1:35 – 2:00 | [C. Domain Types & Value Objects](./chapter-c/README.md) | `Email` rather than `string`: validate once, then trust the type. | 1 |
+| 2:00 – 2:30 | [D. Honest Functions](./chapter-d/README.md) | Pure functions, and signatures that admit absence (`T \| undefined`) and failure (`Result`). | 1 |
+| 2:30 – 2:55 | [E. Illegal States Unrepresentable](./chapter-e/README.md) | One type per state, `never` for exhaustiveness. | 1 |
 | 2:55 – 3:00 | Wrap-up | | |
 
 Each chapter builds on the previous ones, and each concept appears in **one** chapter only:
-structural typing in A, then branded types in C; narrowing in A, then `Result` in D, then
+structural typing in A (including for classes and interfaces), then branded types in C; narrowing in A, then `Result` in D, then
 discriminated unions in E. [TEACHING_GUIDE.md](./TEACHING_GUIDE.md) gives the facilitator's run sheet.
 
 Not covered in the 3 hours: [going-further/](./going-further/README.md) (state coupling, Jest vs

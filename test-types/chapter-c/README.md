@@ -1,6 +1,6 @@
 # Chapter C: Domain Types & Value Objects
 
-> **Duration**: 30 min ([plan](../README.md#the-3-hour-session)).
+> **Duration**: 25 min ([plan](../README.md#the-3-hour-session)).
 > File: [`01-value-objects.test.ts`](./01-value-objects.test.ts)
 
 ```bash

@@ -1,6 +1,6 @@
 # Chapter E: Make Illegal States Unrepresentable
 
-> **Duration**: 30 min ([plan](../README.md#the-3-hour-session)).
+> **Duration**: 25 min ([plan](../README.md#the-3-hour-session)).
 > File: [`01-illegal-states.test.ts`](./01-illegal-states.test.ts)
 
 ```bash
@@ -28,7 +28,7 @@ type Order =
 ```
 
 Each state carries **only its own data**. The `status` field (the **discriminant**) tells the cases
-apart, and checking it narrows the type ([A3](../chapter-a/README.md#a3-narrowing)). The `Result` of
+apart, and checking it narrows the type ([A4](../chapter-a/README.md#a4-narrowing)). The `Result` of
 [Chapter D](../chapter-d/README.md) is built the same way.
 
 ## Exhaustiveness with `never`

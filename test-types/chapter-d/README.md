@@ -1,6 +1,6 @@
 # Chapter D: Honest Functions
 
-> **Duration**: 35 min ([plan](../README.md#the-3-hour-session)).
+> **Duration**: 30 min ([plan](../README.md#the-3-hour-session)).
 > File: [`01-honest-functions.test.ts`](./01-honest-functions.test.ts)
 
 ```bash
@@ -35,7 +35,7 @@ type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 function parseAge(input: string): Result<number, 'NOT_A_NUMBER' | 'OUT_OF_RANGE'>
 ```
 
-The value can only be reached after checking `ok` ([narrowing, A3](../chapter-a/README.md#a3-narrowing)),
+The value can only be reached after checking `ok` ([narrowing, A4](../chapter-a/README.md#a4-narrowing)),
 and the possible errors are listed in the type. Keep exceptions for bugs and truly unexpected
 situations.
 

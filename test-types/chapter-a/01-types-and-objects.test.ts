@@ -1,5 +1,5 @@
 /**
- * Chapter A — Section A1: Types, inference and object types   (~15 min)
+ * Chapter A — Section A1: Types, inference and object types   (~10 min)
  * Theory: ./README.md#a1-types-inference-and-object-types
  *
  * Goals

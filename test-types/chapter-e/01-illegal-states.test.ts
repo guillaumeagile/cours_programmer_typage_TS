@@ -1,5 +1,5 @@
 /**
- * Chapter E — Section E1: Make illegal states unrepresentable   (~30 min)
+ * Chapter E — Section E1: Make illegal states unrepresentable   (~25 min)
  * Theory: ./README.md
  *
  * Goals
@@ -56,7 +56,7 @@ describe('E1. Make illegal states unrepresentable', () => {
       expect(broken.status).toBe('shipped');
     });
 
-    it('checking the discriminant narrows to the right case (see A3)', () => {
+    it('checking the discriminant narrows to the right case (see A4)', () => {
       function label(order: Order): string {
         switch (order.status) {
           case 'pending':
