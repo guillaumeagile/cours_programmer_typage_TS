@@ -4,8 +4,8 @@ This project demonstrates how to **mix Jest and Vitest** in the same project. Bo
 
 ## Files
 
-- **`00-internal-state-coupling.test.ts`** - Jest version
-- **`00-internal-state-coupling.vitest.spec.ts`** - Vitest version
+- **`internal-state-coupling.test.ts`** - Jest version
+- **`internal-state-coupling.vitest.spec.ts`** - Vitest version
 
 Both files contain **identical test logic**. The only difference is the import statement.
 
@@ -123,7 +123,7 @@ import { describe, it, expect } from '@jest/globals';
 Vitest shows test duration more clearly:
 
 ```
-✓ test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts (22 tests) 3ms
+✓ test-types/going-further/internal-state-coupling.vitest.spec.ts (22 tests) 3ms
 ```
 
 vs Jest's more verbose output.
@@ -148,16 +148,16 @@ expect(user.name).toBe('Alice');
 
 **Jest (default):**
 ```bash
-npm test                                    # Run all tests
-npm run test:watch                          # Watch mode
-npm run test -- 00-internal-state-coupling  # Run specific file
+pnpm test                                    # Run all tests
+pnpm run test:watch                          # Watch mode
+pnpm run test internal-state-coupling  # Run specific file
 ```
 
 **Vitest:**
 ```bash
-npm run test:vitest                         # Run all vitest files
-npm run test:vitest:watch                   # Watch mode
-npx vitest run test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts
+pnpm run test:vitest                         # Run all vitest files
+pnpm run test:vitest:watch                   # Watch mode
+pnpm exec vitest run test-types/going-further/internal-state-coupling.vitest.spec.ts
 ```
 
 ## Why Mix Both?
@@ -193,12 +193,12 @@ npx vitest run test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts
 
 ### With Jest:
 ```bash
-npm test -- test-types/chapter-b/00-internal-state-coupling.test.ts
+pnpm test test-types/going-further/internal-state-coupling.test.ts
 ```
 
 Output:
 ```
-PASS test-types/chapter-b/00-internal-state-coupling.test.ts
+PASS test-types/going-further/internal-state-coupling.test.ts
   Part 1: State Coupling in Classes
     ✓ tightly coupled counter works but is hard to test
     ✓ pure function is easy to test
@@ -210,12 +210,12 @@ PASS test-types/chapter-b/00-internal-state-coupling.test.ts
 
 ### With Vitest:
 ```bash
-npm run test:vitest:watch test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts
+pnpm run test:vitest:watch test-types/going-further/internal-state-coupling.vitest.spec.ts
 ```
 
 Output:
 ```
-✓ test-types/chapter-b/00-internal-state-coupling.vitest.spec.ts (22 tests) 4ms
+✓ test-types/going-further/internal-state-coupling.vitest.spec.ts (22 tests) 4ms
 
 Test Files  1 passed (1)
 Tests       22 passed (22)

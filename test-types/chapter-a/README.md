@@ -1,164 +1,114 @@
-# Preamble
+# Chapter A: Types as Constraints
 
-This chapter introduces TypeScript's **type system** and demonstrates how it can help you write **cohesive** code.
+> **Duration**: 55 min, after a 15-min intro, in a 3-hour session covering chapters A to E ([plan](../README.md#the-3-hour-session)).
 
-TypeScript is a **statically typed** language, which means that types are checked at compile-time, not runtime.
-This is in contrast to **dynamically typed** languages like JavaScript, where types are checked at runtime.
+A **type** is a set of constraints: it says which values are allowed and which operations you may
+apply to them. TypeScript checks those constraints **before the program runs** (at compile-time),
+whereas JavaScript only discovers mistakes at runtime.
 
-TypeScript is a superset of JavaScript, so you can use all the same JavaScript features in your code.
+| #  | Section | File | Time |
+|----|---------|------|------|
+| A1 | [Types, inference and object types](#a1-types-inference-and-object-types) | [`01-types-and-objects.test.ts`](./01-types-and-objects.test.ts) | 8 min |
+| A2 | [Structural typing](#a2-structural-typing) | [`02-structural-typing.test.ts`](./02-structural-typing.test.ts) | 10 min |
+| A3 | [OOP in TypeScript: classes and interfaces](#a3-oop-in-typescript-classes-and-interfaces) | [`03-classes-and-interfaces.test.ts`](./03-classes-and-interfaces.test.ts) | 25 min |
+| A4 | [Narrowing](#a4-narrowing) | [`04-narrowing.test.ts`](./04-narrowing.test.ts) | 12 min |
 
-
-TypeScript type system differs from JavaScript in two important ways:
-- It uses **structural typing** instead of **dynamic typing**
-- It uses **type annotations** instead of **dynamic duck typing**
-
-TypeScript naming conventions:
-- variables are **camelCase**
-- functions and classes are **PascalCase**
-- interfaces and enums are **PascalCase**
-- types are **PascalCase**
-- constants are **UPPER_CASE**
-
-https://gist.github.com/anichitiandreea/e1d466022d772ea22db56399a7af576b#naming-conventions
-
-
-# Chapter A: Cohesion - Types as Constraints
-
-## What is a Type?
-
-A **type** is a set of constraints that define:
-- What values are valid
-- What operations are allowed
-- What properties/methods exist
-
-```typescript
-// A type defines valid values
-type Age = number;  // Any number is valid (but should it be?)
-type Email = string; // Any string is valid (but should it be?)
-
-// Without constraints, types are too permissive
-const age: Age = -5;        // ✗ Invalid but allowed
-const email: Email = "not-an-email"; // ✗ Invalid but allowed
+```bash
+pnpm test test-types/chapter-a           # the whole chapter
+pnpm test test-types/chapter-a/02        # one section
+pnpm test test-types/chapter-a --watch   # re-run on every save
 ```
 
-## The Type System
+## A1. Types, inference and object types
 
-A **type system** is a set of rules that:
-1. **Assign types** to expressions and values
-2. **Check compatibility** between types
-3. **Prevent invalid operations** at compile-time
+- A type restricts **values** (`quantity = 'four'` is refused) and **operations** (`name.toFixed()`
+  is refused on a string).
+- Types are **erased at runtime**: they protect you only while compiling.
+- TypeScript **infers** the type of an initialised variable, and checks it just as strictly as an
+  annotation. You **must annotate** function parameters and empty collections.
+- An object type describes a **shape**. Missing properties, unknown properties in a literal and
+  access to a property that does not exist are all refused.
+- `description?: string` means the property may be missing, so the compiler makes you handle
+  `undefined`. `readonly id: string` cannot be reassigned.
+- `type` and `interface` are interchangeable for object shapes. Only `type` can name a union such as
+  `'pending' | 'shipped'`. Interfaces as contracts for classes: [A3](#a3-oop-in-typescript-classes-and-interfaces).
 
-TypeScript's type system is **structural** (shape-based) and **gradual** (allows `any`).
+## A2. Structural typing
 
-```typescript
-// Structural typing - shape matters, not name
-type Point = { x: number; y: number };
-type Coordinate = { x: number; y: number };
+TypeScript compares types by **shape, not by name**. Two types with the same properties are
+compatible, a value with **more** properties fits, and a class fits an interface without `implements`.
+Java and C# are **nominal**: there, only declared names count.
 
-const p: Point = { x: 1, y: 2 };
-const c: Coordinate = p; // ✓ Same shape = compatible
-```
+😱 **The trap**: `type UserId = string` and `type Email = string` are the same type, so swapped
+arguments compile. [Chapter C](../chapter-c/README.md) fixes this.
 
-## Type Errors vs. Syntax Errors
+## A3. OOP in TypeScript: classes and interfaces
 
-- **Syntax Error**: Invalid code structure (won't parse)
-- **Type Error**: Valid syntax but semantically wrong (won't compile)
+The OOP vocabulary is the same as in Java or C# (`class`, `interface`, `extends`, `implements`,
+`abstract`), but several rules differ. Students who know another OO language are the ones who get
+caught out.
 
-```typescript
-const x = 5 +;  // ✗ Syntax error - incomplete expression
+**Classes**
+- A class is **a type and a runtime value**: `instanceof` works.
+- **Parameter properties**: `constructor(readonly id: string, private price: number) {}` declares and
+  assigns the fields in one go.
+- `readonly`, `private` and `protected` are checked **by the compiler only**. At runtime a `private`
+  field is an ordinary property (it shows up in `JSON.stringify`). For real runtime privacy, use
+  JavaScript's `#field`.
 
-const y: string = 5; // ✗ Type error - number assigned to string
-```
+**Interfaces**
+- An interface is a **contract**: `class EmailNotifier implements Notifier, Auditable`. A class can
+  implement several interfaces, and an interface can `extends` several others.
+- 😱 An interface **does not exist at runtime**, so `x instanceof Notifier` is impossible. You check
+  the shape instead ([A4](#a4-narrowing)).
+- 😱 No class is needed: any object of the right shape satisfies the interface ([A2](#a2-structural-typing)).
 
-## Type Inference vs. Explicit Annotations
+**Inheritance**
+- `extends` (single inheritance), `super(...)`, `override` (the compiler checks that the parent
+  method exists).
+- `abstract` class: it cannot be instantiated, and its `abstract` methods must be implemented by the
+  subclasses. **Polymorphism**: code written against the parent type calls the right method at runtime.
+- **Interface or abstract class?** Use an interface by default (a pure contract, several allowed). Use
+  an abstract class when there is code to share.
 
-TypeScript can **infer** types from context:
+**😱 Surprises for Java / C# developers**
 
-```typescript
-const name = "Alice";  // ✓ Inferred as string
-const age = 30;        // ✓ Inferred as number
-```
+| Java / C# | TypeScript |
+|-----------|-----------|
+| Classes are compatible only if they are related by inheritance | Two unrelated classes with the same shape are interchangeable, **unless** they have a `private` member |
+| `private` is enforced at runtime | `private` is erased; `#field` is enforced |
+| Interfaces exist at runtime (`instanceof`) | Interfaces are erased |
+| `this` is always the object | A method passed as a callback loses `this`. Use an arrow-function property |
+| Method overloading: several bodies | Several signatures, **one** body |
 
-But **explicit annotations** are clearer and catch mistakes:
+The Liskov Substitution Principle (what a subclass must guarantee) is covered in
+[Chapter B](../chapter-b/README.md#b2-liskov-substitution-principle).
 
-```typescript
-const name: string = "Alice";  // ✓ Clear intent
-const age: number = "30";      // ✗ Type error caught immediately
-```
+## A4. Narrowing
 
-## Object Member Checking
+A variable of type `number | string` only allows what both types share. **Narrowing** is a runtime
+check that the compiler understands, and inside the checked branch the type becomes precise:
 
-TypeScript checks that you access valid properties:
+| Check | Use it for |
+|-------|-----------|
+| `typeof x === 'number'` | primitive types |
+| `x instanceof ShippedOrder` | classes |
+| `'cardNumber' in x` | plain objects |
+| `function isShipped(o): o is ShippedOrder` | a reusable check (type predicate) |
 
-```typescript
-type User = {
-  name: string;
-  email: string;
-};
+A **cast** (`x as ShippedOrder`) checks nothing: it only silences the compiler. Prefer narrowing, and
+prefer `unknown` to `any` for data you don't control.
 
-const user: User = { name: "Alice", email: "alice@example.com" };
-console.log(user.name);    // ✓ Valid property
-console.log(user.phone);   // ✗ Type error - property doesn't exist
-```
+Narrowing comes back in chapters D (`Result`) and E (discriminated unions).
 
-## Module Scoping
+## Takeaways
 
-Types declared in a module are **local** unless exported:
+1. A type is a constraint checked before the code runs. It does not exist at runtime.
+2. Infer locally, annotate at the boundaries (parameters, return types of public functions).
+3. TypeScript is structural: "same shape = same type". That is convenient, but risky for concepts
+   that share a primitive type.
+4. OOP in TypeScript looks like Java but is structural and erased: interfaces and `private` do not
+   exist at runtime.
+5. Narrow instead of casting.
 
-```typescript
-// file: user.ts
-type UserId = string;  // Not exported - local to this file
-export type User = { id: UserId; name: string };
-
-// file: main.ts
-import { User } from './user';
-const u: User = { id: "123", name: "Alice" };
-const id: UserId = "123"; // ✗ Error - UserId not exported
-```
-
-## Cohesion Through Types
-
-**Cohesion** means related things are grouped together. Types create cohesion by:
-
-1. **Grouping related data** - A `User` type groups `id`, `name`, `email`
-2. **Enforcing constraints** - Only valid operations are allowed
-3. **Revealing intent** - `Email` is clearer than `string`
-4. **Preventing mixing** - Can't accidentally use `UserId` where `Email` is needed
-
-```typescript
-// Without types - low cohesion, high confusion
-function createUser(a: string, b: string, c: string) {
-  // Which parameter is what? Easy to mix up
-  return { id: a, name: b, email: c };
-}
-
-// With types - high cohesion, clear intent
-type UserId = string;
-type Email = string;
-type UserName = string;
-
-function createUser(id: UserId, name: UserName, email: Email) {
-  // Clear what each parameter means
-  return { id, name, email };
-}
-```
-
-## Key Takeaways
-
-- **Types define constraints** on valid values and operations
-- **Type systems enforce** these constraints at compile-time
-- **Explicit annotations** are clearer than inference alone
-- **Structural typing** checks shape compatibility
-- **Types create cohesion** by grouping related data and enforcing constraints
-- **Module scoping** controls type visibility
-
----
-
-**Practice: [Working Examples](./01-basics.test.ts)**
-
-## Next Chapters
-
-| Chapter | Topics |
-|---------|--------|
-| **[02-classes-inheritance.md](./02-classes-inheritance.md)** | Classes as types • Inheritance hierarchies • <br/>Liskov Substitution Principle • Type narrowing & type guards •<br/> Abstract classes • Polymorphism •<br/> Structural vs nominal typing • Branded types |
-| **[03-type-inference.md](./03-type-inference.md)** | Type inference mechanisms • When TypeScript infers automatically •<br/> When explicit annotations are required •<br/> Best practices for balancing inference and annotations |
+**Next**: [Chapter B: Coupling & Abstraction](../chapter-b/README.md)

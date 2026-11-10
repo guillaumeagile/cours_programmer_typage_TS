@@ -166,7 +166,7 @@ it('should return true for banned emails', async () => {
 
 **Run unit tests**:
 ```bash
-npm run test:unit -- in-memory-banned-email.repository.test.ts
+pnpm run test:unit in-memory-banned-email.repository.test.ts
 ```
 
 ### Integration Tests (`tests/integration/infrastructure/valkey-anti-spam.integration.test.ts`)
@@ -204,7 +204,7 @@ it('should persist data across adapter calls', async () => {
 
 **Run integration tests**:
 ```bash
-npm run test:integration -- valkey-anti-spam.integration.test.ts
+pnpm run test:integration valkey-anti-spam.integration.test.ts
 ```
 
 ## Hexagonal Architecture Principles Applied
@@ -278,33 +278,33 @@ async isBlocked(email: string): Promise<boolean> {
 
 ### Install Dependencies
 ```bash
-npm install
+pnpm install
 ```
 
 ### Run All Tests
 ```bash
-npm test
+pnpm test
 ```
 
 ### Run Unit Tests Only
 ```bash
-npm run test:unit
+pnpm run test:unit
 ```
 
 ### Run Integration Tests Only
 ```bash
-npm run test:integration
+pnpm run test:integration
 ```
 
 ### Run Specific Test File
 ```bash
-npm test -- in-memory-banned-email.repository.test.ts
+pnpm test in-memory-banned-email.repository.test.ts
 
 ```
 
 ### Run with Coverage
 ```bash
-npm run test:coverage
+pnpm run test:coverage
 ```
 
 ## Production Usage Example

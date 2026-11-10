@@ -264,7 +264,7 @@ describe('Email Value Object', () => {
 ### Running the Tests
 
 ```bash
-npm test -- tests/unit/domain/value-objects/email.test.ts
+pnpm test tests/unit/domain/value-objects/email.test.ts
 ```
 
 ---
@@ -288,7 +288,7 @@ Now let's apply what you've learned! You have a real `Email` ValueObject impleme
 
 **Run the tests:**
 ```bash
-npm test -- tests/unit/domain/value-objects/email.test.ts
+pnpm test tests/unit/domain/value-objects/email.test.ts
 ```
 
 **Expected Issues to Find:**
