@@ -11,6 +11,8 @@
  *          😱 = trap, 🫵 = exercise.
  */
 
+export {}; // fichier-module : `Order` ne fuit pas dans la portée globale
+
 type Order = { id: string; total: number };
 
 describe('B1. Coupling and dependency injection', () => {

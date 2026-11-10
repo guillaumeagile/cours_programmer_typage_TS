@@ -127,6 +127,40 @@ describe('D1. Honest functions', () => {
     });
   });
 
+  describe('5. A function is a value: function types', () => {
+    // un type de fonction : la forme d'une fonction, sans son corps
+    type Validator<T> = (value: T) => Result<T, string>;
+
+    const positiveInt: Validator<number> = (n) =>
+      Number.isInteger(n) && n > 0 ? { ok: true, value: n } : { ok: false, error: 'must be a positive integer' };
+
+    // une fonction d'ordre supérieur : elle reçoit une fonction en paramètre
+    function validateAll<T>(values: T[], validate: Validator<T>): Result<T[], string> {
+      const out: T[] = [];
+      for (const v of values) {
+        const r = validate(v);
+        if (!r.ok) return r; // le premier échec arrête tout
+        out.push(r.value);
+      }
+      return { ok: true, value: out };
+    }
+
+    it('a function is checked against its type: parameters and return value included', () => {
+      expect(validateAll([1, 2, 3], positiveInt)).toEqual({ ok: true, value: [1, 2, 3] });
+      expect(validateAll([1, -2, 3], positiveInt)).toEqual({ ok: false, error: 'must be a positive integer' });
+
+      // @ts-expect-error — `positiveInt` attend un nombre, pas une chaîne
+      validateAll(['a'], positiveInt);
+    });
+
+    it('a function that returns the wrong kind of value is refused', () => {
+      // @ts-expect-error — renvoie un booléen, pas un Result
+      const bad: Validator<number> = (n) => n > 0;
+
+      expect(bad(1)).toBe(true);
+    });
+  });
+
   describe('🫵 Exercises', () => {
     it.todo('🫵 D1.1 make `divide(a: number, b: number): number` honest about division by zero, with a Result');
     it.todo('🫵 D1.2 write `parseEmail(input: string): Result<Email, ...>` reusing the Email brand of Chapter C');

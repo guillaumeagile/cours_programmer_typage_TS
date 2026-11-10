@@ -162,14 +162,6 @@ describe('A1. Types, inference and object types', () => {
       let anonymousCustomer = { name: 'Bond', id: "007" }
       expect(anonymousCustomer.name).toBe('Bond');
 
-
-
-
-
-
-
-
-
     });
 
     it('an interface can be declared twice: the declarations merge (a `type` cannot)', () => {
@@ -182,7 +174,7 @@ describe('A1. Types, inference and object types', () => {
 
       const shipment: Shipment = { trackingId: 'TRK-1', carrier: 'DHL' };
 
-      // @ts-expect-error — `carrier` is part of the merged interface: it is required
+     // @ts-expect-error — `carrier` is part of the merged interface: it is required
       const missing: Shipment = { trackingId: 'TRK-2' };
 
       expect(shipment.carrier).toBe('DHL');

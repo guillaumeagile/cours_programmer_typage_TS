@@ -11,6 +11,8 @@
  *          😱 = trap, 🫵 = exercise.
  */
 
+export {}; // fichier-module : `Order` ne fuit pas dans la portée globale
+
 class Order {
   constructor(readonly id: string) {}
 }

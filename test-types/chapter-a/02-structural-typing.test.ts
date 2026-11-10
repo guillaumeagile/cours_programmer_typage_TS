@@ -18,7 +18,12 @@ describe('A2. Structural typing', () => {
       type Coordinate = { x: number; y: number };
 
       const point: Point = { x: 1, y: 2 };
-      const coordinate: Coordinate = point; // ✓ names differ, shapes match
+      const tupleXetY = { x: 1, y: 2 };   // type anonyme
+      var coordinate: Coordinate = point; // ✓ names differ, shapes match
+      coordinate = tupleXetY; // ca fonctionne aussi, parce que les types ont la même forme
+      //  { x: 1, y: 2 } n'a pas de nom : TypeScript en déduit le type { x: number; y: number } directement à partir de la valeur.
+      //  C'est un type anonyme, et il se range sans difficulté dans Point ou Coordinate
+      //  grâce au typage structurel, puisque seule la forme compte.
 
       expect(coordinate.x).toBe(1);
     });
